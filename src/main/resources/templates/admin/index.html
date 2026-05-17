@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"
+      th:replace="admin/backup_admin_layout :: content (~{::body})">
+
+<body>
+
+<h2 class="mb-4 border-bottom pb-2">管理ダッシュボード</h2>
+
+<!-- PC表示：横並びカード -->
+<div class="row g-4 d-none d-md-flex">
+
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body text-center">
+                <h4 class="fw-bold mb-3">商品管理</h4>
+                <p class="text-muted">商品一覧・登録・編集を行います。</p>
+                <a href="/admin/products" class="btn btn-primary w-100 mt-3">商品管理へ</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body text-center">
+                <h4 class="fw-bold mb-3">注文管理</h4>
+                <p class="text-muted">注文一覧・詳細・ステータス変更を行います。</p>
+                <a href="/admin/orders" class="btn btn-primary w-100 mt-3">注文管理へ</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body text-center">
+                <h4 class="fw-bold mb-3">会員管理</h4>
+                <p class="text-muted">会員一覧・詳細・権限変更を行います。</p>
+                <a href="/admin/users" class="btn btn-primary w-100 mt-3">会員管理へ</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- スマホ表示：縦並びカード -->
+<div class="d-md-none">
+
+    <div class="card shadow-sm mb-3">
+        <div class="card-body text-center">
+            <h4 class="fw-bold mb-2">商品管理</h4>
+            <p class="text-muted">商品一覧・登録・編集</p>
+            <a href="/admin/products" class="btn btn-primary w-100 mt-2">商品管理へ</a>
+        </div>
+    </div>
+
+    <div class="card shadow-sm mb-3">
+        <div class="card-body text-center">
+            <h4 class="fw-bold mb-2">注文管理</h4>
+            <p class="text-muted">注文一覧・詳細・ステータス変更</p>
+            <a href="/admin/orders" class="btn btn-primary w-100 mt-2">注文管理へ</a>
+        </div>
+    </div>
+
+    <div class="card shadow-sm mb-3">
+        <div class="card-body text-center">
+            <h4 class="fw-bold mb-2">会員管理</h4>
+            <p class="text-muted">会員一覧・詳細・権限変更</p>
+            <a href="/admin/users" class="btn btn-primary w-100 mt-2">会員管理へ</a>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

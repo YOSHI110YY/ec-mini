@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>管理画面</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 220px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-right: 1px solid #ddd;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <h4>管理メニュー</h4>
+
+    <ul class="nav flex-column">
+
+        <li class="nav-item">
+            <a href="/admin/dashboard" class="nav-link">ダッシュボード</a>
+        </li>
+
+        <li class="nav-item">
+            <a href="/admin/products" class="nav-link">商品管理</a>
+        </li>
+
+    </ul>
+
+</div>
+
+<div class="main-content" th:fragment="content">
+    <div th:insert="${content}"></div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"
+      th:replace="admin/backup_admin_layout :: content(~{::body})">
+
+<h2 class="mb-4 border-bottom pb-2">カテゴリ追加</h2>
+
+<form th:action="@{/admin/categories/new}" method="post">
+    <div class="mb-3">
+        <label class="form-label">カテゴリ名</label>
+        <input type="text" name="name" class="form-control" required>
+    </div>
+
+    <button class="btn btn-primary">登録</button>
+</form>
+
+</html>

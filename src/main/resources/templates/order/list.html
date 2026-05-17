@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>注文履歴</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="container-fluid">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <a class="navbar-brand ms-3" href="/mypage">Office Station</a>
+    <div class="navbar-nav ms-3">
+        <a class="nav-link" href="/products">商品一覧</a>
+        <a class="nav-link" href="/cart">カート</a>
+        <a class="nav-link active" href="/orders">注文履歴</a>
+        <a class="nav-link" href="/mypage">マイページ</a>
+        <a class="nav-link" href="/logout">ログアウト</a>
+    </div>
+</nav>
+
+<div class="row">
+
+    <aside class="col-3">
+        <div class="list-group mb-4">
+            <a class="list-group-item active">ショップガイド</a>
+            <a class="list-group-item">ご購入方法</a>
+            <a class="list-group-item">お支払い方法</a>
+            <a class="list-group-item">配送料</a>
+            <a class="list-group-item">返品・交換</a>
+        </div>
+    </aside>
+
+    <main class="col-9">
+
+        <h2 class="mb-4">注文履歴</h2>
+
+        <div th:if="${#lists.isEmpty(orders)}" class="alert alert-info">
+            注文履歴がありません。
+        </div>
+
+        <table th:if="${!#lists.isEmpty(orders)}" class="table table-striped">
+            <thead>
+            <tr>
+                <th>注文番号</th>
+                <th>注文日</th>
+                <th>合計金額</th>
+                <th></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="o : ${orders}">
+                <td th:text="${o.id}"></td>
+                <td th:text="${#temporals.format(o.createdAt, 'yyyy/MM/dd HH:mm')}"></td>
+                <td th:text="${o.totalPrice} + '円'"></td>
+                <td>
+                    <a th:href="@{'/orders/' + ${o.id}}" class="btn btn-sm btn-outline-primary">
+                        詳細
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </main>
+</div>
+
+</body>
+</html>

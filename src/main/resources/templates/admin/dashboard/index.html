@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ja"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>ダッシュボード</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+  <style>
+
+    body {
+      margin: 0;
+    }
+
+    .wrapper {
+      display: flex;
+      min-height: calc(100vh - 56px);
+    }
+
+    .sidebar {
+      width: 220px;
+      background: #f8f9fa;
+      padding: 20px;
+      border-right: 1px solid #ddd;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 20px;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+<!-- header -->
+<div th:replace="admin/fragments/header :: header"></div>
+
+<div class="wrapper">
+
+  <!-- sidebar -->
+  <div th:replace="admin/fragments/sidebar :: sidebar"></div>
+
+  <!-- content -->
+  <div class="main-content">
+
+    <h2 class="mb-4 border-bottom pb-2">
+      ダッシュボード
+    </h2>
+
+    <div class="row g-3">
+
+      <!-- 今日の売上 -->
+      <div class="col-md-4">
+
+        <div class="card shadow-sm p-3">
+
+          <h5 class="fw-bold">
+            今日の売上
+          </h5>
+
+          <p class="fs-3 fw-bold text-primary">
+
+            ¥<span th:text="${todaySales}">
+                            0
+                        </span>
+
+          </p>
+
+        </div>
+
+      </div>
+
+      <!-- 注文数 -->
+      <div class="col-md-3">
+
+        <div class="card shadow-sm p-3">
+
+          <h5 class="fw-bold">
+            注文数
+          </h5>
+
+          <p class="fs-3 fw-bold text-info">
+
+                        <span th:text="${orderCount}">
+                            0
+                        </span> 件
+
+          </p>
+
+        </div>
+
+      </div>
+
+      <!-- 在庫切れ -->
+      <div class="col-md-3">
+
+        <div class="card shadow-sm p-3">
+
+          <h5 class="fw-bold">
+            在庫切れ
+          </h5>
+
+          <p class="fs-3 fw-bold text-danger">
+
+                        <span th:text="${outOfStockCount}">
+                            0
+                        </span> 件
+
+          </p>
+
+        </div>
+
+      </div>
+
+      <!-- 新着注文 -->
+      <div class="col-md-3">
+
+        <div class="card shadow-sm p-3">
+
+          <h5 class="fw-bold">
+            新着注文
+          </h5>
+
+          <p class="fs-3 fw-bold text-warning">
+
+                        <span th:text="${newOrders}">
+                            0
+                        </span> 件
+
+          </p>
+
+        </div>
+
+        <div class="col-md-3">
+          <div class="card shadow-sm p-3">
+            <h5 class="fw-bold">発送待ち</h5>
+
+            <p class="fs-3 fw-bold text-warning">
+              <span th:text="${pendingShipments}">0</span> 件
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>

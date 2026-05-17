@@ -1,0 +1,33 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>商品登録</title>
+</head>
+<body>
+
+<h1>商品登録</h1>
+
+<form action="/products" method="post">
+    <div>
+        <label>商品名：</label>
+        <input type="text" name="name" required>
+    </div>
+
+    <div>
+        <label>価格：</label>
+        <input type="number" name="price" required>
+    </div>
+
+    <div>
+        <label>カテゴリ：</label>
+        <select name="category">
+            <option value="食品">食品</option>
+            <option value="本">本</option>
+            <option value="家電">家電</option>
+        </select>
+    </div>
+
+    <button type="submit">登録</button>
+</form>
+
+</body>
+</html>

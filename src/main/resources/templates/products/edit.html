@@ -1,0 +1,35 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>商品編集</title>
+</head>
+<body>
+
+<h1>商品編集</h1>
+
+<form th:action="@{'/products/update/' + ${product.id}}" method="post">
+    <div>
+        <label>商品名：</label>
+        <input type="text" name="name" th:value="${product.name}" required>
+    </div>
+
+    <div>
+        <label>価格：</label>
+        <input type="number" name="price" th:value="${product.price}" required>
+    </div>
+
+    <div>
+        <label>カテゴリ：</label>
+        <select name="category">
+            <option value="食品" th:selected="${product.category == '食品'}">食品</option>
+            <option value="本" th:selected="${product.category == '本'}">本</option>
+            <option value="家電" th:selected="${product.category == '家電'}">家電</option>
+        </select>
+    </div>
+
+    <button type="submit">更新</button>
+</form>
+
+<a href="/products">一覧に戻る</a>
+
+</body>
+</html>

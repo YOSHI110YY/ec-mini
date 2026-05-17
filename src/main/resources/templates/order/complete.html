@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>注文完了</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="container-fluid">
+
+<!-- ナビバー -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <a class="navbar-brand ms-3" href="/mypage">Office Station</a>
+    <div class="navbar-nav ms-3">
+        <a class="nav-link" href="/products">商品一覧</a>
+        <a class="nav-link" href="/cart">カート</a>
+        <a class="nav-link" href="/orders">注文履歴</a>
+        <a class="nav-link" href="/mypage">マイページ</a>
+        <a class="nav-link" href="/logout">ログアウト</a>
+    </div>
+</nav>
+
+<div class="row">
+
+    <!-- 左メニュー -->
+    <aside class="col-3">
+        <div class="list-group mb-4">
+            <a class="list-group-item active">ショップガイド</a>
+            <a class="list-group-item" href="/guide/howto">ご購入方法</a>
+            <a class="list-group-item" href="/guide/payment">お支払い方法</a>
+            <a class="list-group-item" href="/guide/shipping">配送料</a>
+            <a class="list-group-item" href="/guide/return">返品・交換</a>
+        </div>
+    </aside>
+
+    <!-- メイン -->
+    <main class="col-9">
+
+        <h2 class="mb-4 border-bottom pb-2">ご注文ありがとうございました</h2>
+
+        <!-- 注文情報 -->
+        <div class="alert alert-success">
+            <p class="mb-1"><strong>注文番号：</strong><span th:text="${order.id}"></span></p>
+            <p class="mb-1"><strong>注文日：</strong>
+                <span th:text="${#temporals.format(order.createdAt, 'yyyy/MM/dd HH:mm')}"></span>
+            </p>
+            <p class="mb-0"><strong>合計金額：</strong>
+                <span th:text="${#numbers.formatInteger(order.totalPrice, 3, 'COMMA')}"></span> 円
+            </p>
+        </div>
+
+        <p>ご注文内容の詳細は、注文履歴からいつでもご確認いただけます。</p>
+
+        <a href="/orders" class="btn btn-primary mt-3">注文履歴を見る</a>
+        <a href="/products" class="btn btn-secondary mt-3 ms-2">商品一覧へ戻る</a>
+
+    </main>
+</div>
+
+</body>
+</html>

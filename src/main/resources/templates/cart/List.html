@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>カート</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+
+<body class="bg-light">
+
+<div class="container py-4">
+
+    <h2 class="mb-4">ショッピングカート</h2>
+
+    <!-- カートが空の場合 -->
+    <div th:if="${#lists.isEmpty(cart.items)}" class="alert alert-info">
+        カートに商品がありません。
+    </div>
+
+    <!-- カートに商品がある場合 -->
+    <div th:if="${!#lists.isEmpty(cart.items)}">
+
+        <table class="table align-middle bg-white">
+            <thead>
+            <tr>
+                <th>商品</th>
+                <th>価格</th>
+                <th style="width: 140px;">数量</th>
+                <th>小計</th>
+                <th></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="item : ${cart.items}">
+                <td>
+                    <div class="d-flex align-items-center">
+                        <img th:src="${item.image != null ? '/uploads/' + item.image : '/images/noimage.png'}"
+                             style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px; margin-right: 10px;">
+                        <span th:text="${item.name}"></span>
+                    </div>
+                </td>
+
+                <td>
+                    <span th:text="${item.price}"></span>円
+                </td>
+
+                <td>
+                    <form th:action="@{/cart/update}" method="post" class="d-flex">
+                        <input type="hidden" name="productId" th:value="${item.productId}">
+                        <input type="number" name="quantity" min="1"
+                               th:value="${item.quantity}"
+                               class="form-control form-control-sm" style="width: 70px;">
+                        <button class="btn btn-sm btn-outline-primary ms-2">更新</button>
+                    </form>
+                </td>
+
+                <td>
+                    <span th:text="${item.subtotal}"></span>円
+                </td>
+
+                <td>
+                    <form th:action="@{'/cart/delete/' + ${item.productId}}" method="post">
+                        <button class="btn btn-sm btn-outline-danger">削除</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- 合計金額 -->
+        <div class="text-end mt-4">
+            <h4>合計：<span th:text="${cart.totalPrice}"></span>円</h4>
+        </div>
+
+        <!-- 購入へ進む -->
+        <div class="text-end mt-3">
+            <a href="/orders/confirm" class="btn btn-primary btn-lg">購入手続きへ進む</a>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    function updateQuantity(productId, quantity) {
+        fetch(`/api/cart/update?id=${productId}&quantity=${quantity}`, {
+            method: "POST"
+        })
+            .then(response => {
+                if (!response.ok) throw new Error("数量変更に失敗しました");
+                return response.text();
+            })
+            .then(() => {
+                location.reload(); // 画面を再読み込みして反映
+            })
+            .catch(error => {
+                console.error(error);
+                alert("エラーが発生しました");
+            });
+    }
+
+    function deleteItem(productId) {
+        fetch(`/api/cart/delete/${productId}`, {
+            method: "DELETE"
+        })
+            .then(response => {
+                if (!response.ok) throw new Error("削除に失敗しました");
+                return response.text();
+            })
+            .then(() => {
+                location.reload();
+            })
+            .catch(error => {
+                console.error(error);
+                alert("エラーが発生しました");
+            });
+    }
+</script>
+
+</body>
+</html>

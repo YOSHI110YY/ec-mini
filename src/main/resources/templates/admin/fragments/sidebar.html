@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<div th:fragment="sidebar"
+     class="sidebar">
+
+    <h4 class="mb-4">
+        管理メニュー
+    </h4>
+
+    <ul class="nav flex-column">
+
+        <li class="nav-item">
+            <a href="/admin/dashboard"
+               class="nav-link">
+                ダッシュボード
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="/admin/products"
+               class="nav-link">
+                商品管理
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="/admin/orders"
+               class="nav-link">
+                注文管理
+            </a>
+        </li>
+
+    </ul>
+
+</div>
+
+</body>
+</html>
