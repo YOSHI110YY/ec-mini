@@ -1,25 +1,43 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<html lang="ja"
+      xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>注文詳細</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>注文詳細 | Fit Deli</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <style>
+        body {
+            background: #f5f6f8;
+        }
+
+        .order-container {
+            max-width: 1100px;
+        }
+
+        .order-card {
+            border-radius: 14px;
+            border: none;
+        }
+
+        .btn {
+            border-radius: 10px;
+        }
+    </style>
 </head>
 
-<body class="container-fluid">
+<body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
     <div class="container-fluid">
-        <a class="navbar-brand ms-3" href="/mypage">Office Station</a>
+        <a class="navbar-brand ms-3" href="/products">
+            Fit Deli
+        </a>
 
-        <button class="btn btn-outline-light d-md-none me-2"
-                type="button"
-                data-bs-toggle="offcanvas"
-                data-bs-target="#sidebarMenu">
-            メニュー
-        </button>
-
-        <div class="navbar-nav me-auto align-items-center">
+        <div class="navbar-nav ms-3">
             <a class="nav-link" href="/products">商品一覧</a>
             <a class="nav-link" href="/cart">カート</a>
             <a class="nav-link active" href="/orders">注文履歴</a>
@@ -28,63 +46,126 @@
     </div>
 </nav>
 
-<div class="row px-3">
+<div class="container order-container py-4">
 
-    <div class="col-md-3 d-none d-md-block">
-        <div class="list-group mb-4">
-            <a href="/mypage" class="list-group-item list-group-item-action">マイページ</a>
-            <a href="/orders" class="list-group-item list-group-item-action active">注文履歴</a>
-            <a href="/products" class="list-group-item list-group-item-action">商品一覧</a>
-            <a href="/cart" class="list-group-item list-group-item-action">カート</a>
-        </div>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2 class="mb-0">
+            注文詳細
+        </h2>
+
+        <a href="/orders"
+           class="btn btn-outline-secondary">
+            注文履歴へ戻る
+        </a>
+
     </div>
 
-    <main class="col-md-9">
+    <div class="card order-card shadow-sm mb-4">
 
-        <h2 class="mb-4 border-bottom pb-2">注文詳細</h2>
+        <div class="card-body">
 
-        <!-- 注文情報 -->
-        <div class="mb-4">
-            <p><strong>注文番号：</strong> <span th:text="${order.id}"></span></p>
-            <p><strong>注文日時：</strong> <span th:text="${#temporals.format(order.createdAt, 'yyyy/MM/dd HH:mm')}"></span></p>
-            <p><strong>合計金額：</strong> <span th:text="${#numbers.formatInteger(order.totalPrice, 0, 'COMMA')}"></span> 円</p>
-            <p><strong>ステータス：</strong> <span th:text="${order.status}"></span></p>
-        </div>
+            <table class="table table-bordered mb-0">
 
-        <!-- 注文商品一覧 -->
-        <h4 class="border-bottom pb-2">注文商品</h4>
-
-        <p th:if="${order.items == null or #lists.isEmpty(order.items)}"
-           class="text-muted mt-3">
-            注文商品がありません。
-        </p>
-
-        <div th:if="${order.items != null and !#lists.isEmpty(order.items)}" class="table-responsive">
-            <table class="table table-striped align-middle">
-                <thead>
                 <tr>
-                    <th>商品名</th>
-                    <th>数量</th>
-                    <th>価格</th>
-                    <th>小計</th>
+                    <th style="width: 180px;">注文番号</th>
+                    <td>
+                        #<span th:text="${order.id}"></span>
+                    </td>
                 </tr>
-                </thead>
-                <tbody>
-                <tr th:each="item : ${order.items}">
-                    <td th:text="${item.product.name}"></td>
-                    <td th:text="${item.quantity}"></td>
-                    <td th:text="${#numbers.formatInteger(item.price, 0, 'COMMA')} + '円'"></td>
-                    <td th:text="${#numbers.formatInteger(item.price * item.quantity, 0, 'COMMA')} + '円'"></td>
+
+                <tr>
+                    <th>注文日時</th>
+                    <td th:text="${#temporals.format(order.createdAt, 'yyyy/MM/dd HH:mm')}"></td>
                 </tr>
-                </tbody>
+
+                <tr>
+                    <th>合計金額</th>
+                    <td class="fw-bold">
+                        <span th:text="${#numbers.formatInteger(order.totalPrice, 0, 'COMMA')}"></span>円
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>ステータス</th>
+                    <td>
+                        <span th:if="${order.status == 'ORDERED'}"
+                              class="badge bg-warning text-dark">
+                            ORDERED
+                        </span>
+
+                        <span th:if="${order.status == 'SHIPPED'}"
+                              class="badge bg-success">
+                            SHIPPED
+                        </span>
+
+                        <span th:if="${order.status == 'CANCELED'}"
+                              class="badge bg-danger">
+                            CANCELED
+                        </span>
+
+                        <span th:if="${order.status == null}"
+                              class="badge bg-secondary">
+                            未設定
+                        </span>
+                    </td>
+                </tr>
+
             </table>
+
         </div>
 
-        <a href="/orders" class="btn btn-secondary mt-3">注文履歴に戻る</a>
+    </div>
 
-    </main>
+    <h4 class="mb-3">
+        注文商品
+    </h4>
+
+    <div th:if="${order.items == null or #lists.isEmpty(order.items)}"
+         class="alert alert-info bg-white shadow-sm border-0">
+        注文商品がありません。
+    </div>
+
+    <div th:if="${order.items != null and !#lists.isEmpty(order.items)}"
+         class="card order-card shadow-sm">
+
+        <div class="card-body p-0">
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead class="table-light">
+                    <tr>
+                        <th>商品名</th>
+                        <th>数量</th>
+                        <th>価格</th>
+                        <th>小計</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="item : ${order.items}">
+                        <td th:text="${item.product.name}"></td>
+                        <td th:text="${item.quantity}"></td>
+                        <td>
+                            <span th:text="${#numbers.formatInteger(item.price, 0, 'COMMA')}"></span>円
+                        </td>
+                        <td class="fw-bold">
+                            <span th:text="${#numbers.formatInteger(item.price * item.quantity, 0, 'COMMA')}"></span>円
+                        </td>
+                    </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

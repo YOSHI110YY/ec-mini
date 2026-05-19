@@ -1,69 +1,141 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<html lang="ja"
+      xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>注文履歴</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>注文履歴 | Fit Deli</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <style>
+        body {
+            background: #f5f6f8;
+        }
+
+        .orders-container {
+            max-width: 1100px;
+        }
+
+        .orders-card {
+            border-radius: 14px;
+            border: none;
+        }
+
+        .btn {
+            border-radius: 10px;
+        }
+    </style>
 </head>
 
-<body class="container-fluid">
+<body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-    <a class="navbar-brand ms-3" href="/mypage">Office Station</a>
-    <div class="navbar-nav ms-3">
-        <a class="nav-link" href="/products">商品一覧</a>
-        <a class="nav-link" href="/cart">カート</a>
-        <a class="nav-link active" href="/orders">注文履歴</a>
-        <a class="nav-link" href="/mypage">マイページ</a>
-        <a class="nav-link" href="/logout">ログアウト</a>
+    <div class="container-fluid">
+        <a class="navbar-brand ms-3" href="/products">
+            Fit Deli
+        </a>
+
+        <div class="navbar-nav ms-3">
+            <a class="nav-link" href="/products">商品一覧</a>
+            <a class="nav-link" href="/cart">カート</a>
+            <a class="nav-link active" href="/orders">注文履歴</a>
+            <a class="nav-link" href="/mypage">マイページ</a>
+        </div>
     </div>
 </nav>
 
-<div class="row">
+<div class="container orders-container py-4">
 
-    <aside class="col-3">
-        <div class="list-group mb-4">
-            <a class="list-group-item active">ショップガイド</a>
-            <a class="list-group-item">ご購入方法</a>
-            <a class="list-group-item">お支払い方法</a>
-            <a class="list-group-item">配送料</a>
-            <a class="list-group-item">返品・交換</a>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2 class="mb-0">
+            注文履歴
+        </h2>
+
+        <a href="/products"
+           class="btn btn-outline-secondary">
+            商品一覧へ戻る
+        </a>
+
+    </div>
+
+    <div th:if="${#lists.isEmpty(orders)}"
+         class="alert alert-info bg-white shadow-sm border-0">
+        注文履歴がありません。
+    </div>
+
+    <div th:if="${!#lists.isEmpty(orders)}"
+         class="card orders-card shadow-sm">
+
+        <div class="card-body p-0">
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead class="table-light">
+                    <tr>
+                        <th>注文番号</th>
+                        <th>注文日</th>
+                        <th>合計金額</th>
+                        <th>ステータス</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="o : ${orders}">
+                        <td>
+                            #<span th:text="${o.id}"></span>
+                        </td>
+
+                        <td th:text="${#temporals.format(o.createdAt, 'yyyy/MM/dd HH:mm')}"></td>
+
+                        <td class="fw-bold">
+                            <span th:text="${#numbers.formatInteger(o.totalPrice, 0, 'COMMA')}"></span>円
+                        </td>
+
+                        <td>
+                            <span th:if="${o.status == 'ORDERED'}"
+                                  class="badge bg-warning text-dark">
+                                ORDERED
+                            </span>
+
+                            <span th:if="${o.status == 'SHIPPED'}"
+                                  class="badge bg-success">
+                                SHIPPED
+                            </span>
+
+                            <span th:if="${o.status == 'CANCELED'}"
+                                  class="badge bg-danger">
+                                CANCELED
+                            </span>
+
+                            <span th:if="${o.status == null}"
+                                  class="badge bg-secondary">
+                                未設定
+                            </span>
+                        </td>
+
+                        <td class="text-end">
+                            <a th:href="@{'/orders/' + ${o.id}}"
+                               class="btn btn-sm btn-outline-primary">
+                                詳細
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+
         </div>
-    </aside>
 
-    <main class="col-9">
+    </div>
 
-        <h2 class="mb-4">注文履歴</h2>
-
-        <div th:if="${#lists.isEmpty(orders)}" class="alert alert-info">
-            注文履歴がありません。
-        </div>
-
-        <table th:if="${!#lists.isEmpty(orders)}" class="table table-striped">
-            <thead>
-            <tr>
-                <th>注文番号</th>
-                <th>注文日</th>
-                <th>合計金額</th>
-                <th></th>
-            </tr>
-            </thead>
-
-            <tbody>
-            <tr th:each="o : ${orders}">
-                <td th:text="${o.id}"></td>
-                <td th:text="${#temporals.format(o.createdAt, 'yyyy/MM/dd HH:mm')}"></td>
-                <td th:text="${o.totalPrice} + '円'"></td>
-                <td>
-                    <a th:href="@{'/orders/' + ${o.id}}" class="btn btn-sm btn-outline-primary">
-                        詳細
-                    </a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-
-    </main>
 </div>
 
 </body>

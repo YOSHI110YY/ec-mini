@@ -1,122 +1,219 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ja"
+      xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>カート</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <title>カート | Fit Deli</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <style>
+        body {
+            background: #f5f6f8;
+        }
+
+        .cart-container {
+            max-width: 1100px;
+        }
+
+        .cart-card {
+            border-radius: 14px;
+            border: none;
+        }
+
+        .cart-image {
+            width: 72px;
+            height: 72px;
+            object-fit: cover;
+            border-radius: 10px;
+            background: #f3f4f6;
+        }
+
+        .total-box {
+            border-radius: 14px;
+            background: #ffffff;
+        }
+
+        .btn-primary,
+        .btn-success {
+            border-radius: 10px;
+        }
+    </style>
 </head>
 
-<body class="bg-light">
+<body>
 
-<div class="container py-4">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container-fluid">
+        <a class="navbar-brand ms-3" href="/products">Fit Deli</a>
 
-    <h2 class="mb-4">ショッピングカート</h2>
+        <div class="navbar-nav me-auto align-items-center">
+            <a class="nav-link" href="/products">商品一覧</a>
+            <a class="nav-link active" href="/cart">カート</a>
+            <a class="nav-link text-white" href="/orders">注文履歴</a>
+            <a class="nav-link text-white" href="/mypage">マイページ</a>
 
-    <!-- カートが空の場合 -->
-    <div th:if="${#lists.isEmpty(cart.items)}" class="alert alert-info">
+            <form th:action="@{/logout}" method="post" class="d-inline m-0 ms-2">
+                <input type="hidden"
+                       th:name="${_csrf.parameterName}"
+                       th:value="${_csrf.token}">
+
+                <button type="submit"
+                        class="nav-link btn btn-link text-white-50 border-0 p-0">
+                    ログアウト
+                </button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="container cart-container py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2 class="mb-0">
+            ショッピングカート
+        </h2>
+
+        <a href="/products"
+           class="btn btn-outline-secondary">
+            商品一覧へ戻る
+        </a>
+
+    </div>
+
+    <div th:if="${#lists.isEmpty(cart.items)}"
+         class="alert alert-info bg-white shadow-sm border-0">
         カートに商品がありません。
     </div>
 
-    <!-- カートに商品がある場合 -->
     <div th:if="${!#lists.isEmpty(cart.items)}">
 
-        <table class="table align-middle bg-white">
-            <thead>
-            <tr>
-                <th>商品</th>
-                <th>価格</th>
-                <th style="width: 140px;">数量</th>
-                <th>小計</th>
-                <th></th>
-            </tr>
-            </thead>
+        <div class="card cart-card shadow-sm mb-4">
 
-            <tbody>
-            <tr th:each="item : ${cart.items}">
-                <td>
-                    <div class="d-flex align-items-center">
-                        <img th:src="${item.image != null ? '/uploads/' + item.image : '/images/noimage.png'}"
-                             style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px; margin-right: 10px;">
-                        <span th:text="${item.name}"></span>
-                    </div>
-                </td>
+            <div class="card-body p-0">
 
-                <td>
-                    <span th:text="${item.price}"></span>円
-                </td>
+                <div class="table-responsive">
 
-                <td>
-                    <form th:action="@{/cart/update}" method="post" class="d-flex">
-                        <input type="hidden" name="productId" th:value="${item.productId}">
-                        <input type="number" name="quantity" min="1"
-                               th:value="${item.quantity}"
-                               class="form-control form-control-sm" style="width: 70px;">
-                        <button class="btn btn-sm btn-outline-primary ms-2">更新</button>
-                    </form>
-                </td>
+                    <table class="table table-hover align-middle mb-0">
 
-                <td>
-                    <span th:text="${item.subtotal}"></span>円
-                </td>
+                        <thead class="table-light">
+                        <tr>
+                            <th>商品</th>
+                            <th>価格</th>
+                            <th style="width: 180px;">数量</th>
+                            <th>小計</th>
+                            <th></th>
+                        </tr>
+                        </thead>
 
-                <td>
-                    <form th:action="@{'/cart/delete/' + ${item.productId}}" method="post">
-                        <button class="btn btn-sm btn-outline-danger">削除</button>
-                    </form>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                        <tbody>
+                        <tr th:each="item : ${cart.items}">
 
-        <!-- 合計金額 -->
-        <div class="text-end mt-4">
-            <h4>合計：<span th:text="${cart.totalPrice}"></span>円</h4>
+                            <td>
+                                <div class="d-flex align-items-center gap-3">
+
+                                    <img th:src="${item.image != null ? '/uploads/product/' + item.image : '/images/noimage.png'}"
+                                         class="cart-image"
+                                         alt="商品画像">
+
+                                    <div>
+                                        <div class="fw-bold"
+                                             th:text="${item.name}">
+                                        </div>
+
+                                        <div class="small text-muted">
+                                            Fit Deli
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </td>
+
+                            <td>
+                                <span th:text="${#numbers.formatInteger(item.price, 0, 'COMMA')}"></span>円
+                            </td>
+
+                            <td>
+                                <form th:action="@{/cart/update}"
+                                      method="post"
+                                      class="d-flex align-items-center gap-2">
+
+                                    <input type="hidden"
+                                           name="productId"
+                                           th:value="${item.productId}">
+
+                                    <input type="number"
+                                           name="quantity"
+                                           min="1"
+                                           th:value="${item.quantity}"
+                                           class="form-control form-control-sm"
+                                           style="width: 70px;">
+
+                                    <button class="btn btn-sm btn-outline-primary">
+                                        更新
+                                    </button>
+
+                                </form>
+                            </td>
+
+                            <td class="fw-bold">
+                                <span th:text="${#numbers.formatInteger(item.subtotal, 0, 'COMMA')}"></span>円
+                            </td>
+
+                            <td>
+                                <form th:action="@{'/cart/delete/' + ${item.productId}}"
+                                      method="post">
+
+                                    <button class="btn btn-sm btn-outline-danger">
+                                        削除
+                                    </button>
+
+                                </form>
+                            </td>
+
+                        </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
         </div>
 
-        <!-- 購入へ進む -->
-        <div class="text-end mt-3">
-            <a href="/orders/confirm" class="btn btn-primary btn-lg">購入手続きへ進む</a>
+        <div class="total-box shadow-sm p-4 text-end">
+
+            <p class="text-muted mb-1">
+                合計金額
+            </p>
+
+            <h3 class="fw-bold mb-4">
+                <span th:text="${#numbers.formatInteger(cart.totalPrice, 0, 'COMMA')}"></span>円
+            </h3>
+
+            <div class="d-flex justify-content-end gap-2">
+
+                <a href="/products"
+                   class="btn btn-outline-secondary">
+                    買い物を続ける
+                </a>
+
+                <a href="/orders/confirm"
+                   class="btn btn-primary btn-lg">
+                    購入手続きへ進む
+                </a>
+
+            </div>
+
         </div>
 
     </div>
 
 </div>
-
-<script>
-    function updateQuantity(productId, quantity) {
-        fetch(`/api/cart/update?id=${productId}&quantity=${quantity}`, {
-            method: "POST"
-        })
-            .then(response => {
-                if (!response.ok) throw new Error("数量変更に失敗しました");
-                return response.text();
-            })
-            .then(() => {
-                location.reload(); // 画面を再読み込みして反映
-            })
-            .catch(error => {
-                console.error(error);
-                alert("エラーが発生しました");
-            });
-    }
-
-    function deleteItem(productId) {
-        fetch(`/api/cart/delete/${productId}`, {
-            method: "DELETE"
-        })
-            .then(response => {
-                if (!response.ok) throw new Error("削除に失敗しました");
-                return response.text();
-            })
-            .then(() => {
-                location.reload();
-            })
-            .catch(error => {
-                console.error(error);
-                alert("エラーが発生しました");
-            });
-    }
-</script>
 
 </body>
 </html>

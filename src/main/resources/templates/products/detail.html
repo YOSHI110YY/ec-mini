@@ -55,10 +55,10 @@
 
         <div class="list-group shadow-sm">
             <div class="list-group-item bg-primary text-white fw-bold">カテゴリ検索</div>
-            <a th:href="@{/products(category='FOOD')}" class="list-group-item list-group-item-action">FOOD</a>
-            <a th:href="@{/products(category='BOOKS')}" class="list-group-item list-group-item-action">BOOKS</a>
-            <a th:href="@{/products(category='PC ACCESSORIES')}" class="list-group-item list-group-item-action">PC ACCESSORIES</a>
-            <a th:href="@{/products(category='STATIONERY')}" class="list-group-item list-group-item-action">STATIONERY</a>
+            <a th:href="@{/products(category='MAIN')}" class="list-group-item list-group-item-action">MAIN</a>
+            <a th:href="@{/products(category='LOW CARB')}" class="list-group-item list-group-item-action">LOW CARB</a>
+            <a th:href="@{/products(category='PROTEIN')}" class="list-group-item list-group-item-action">PROTEIN</a>
+            <a th:href="@{/products(category='SIDE DISH')}" class="list-group-item list-group-item-action">SIDE DISH</a>
             <a th:href="@{/products}" class="list-group-item list-group-item-action list-group-item-secondary">全件表示</a>
         </div>
     </div>
@@ -84,8 +84,9 @@
 
             <!-- 画像（スマホでは上、PCでは左） -->
             <div class="col-12 col-md-5 mb-3">
-                <img th:src="${product.image != null ? '/uploads/' + product.image : '/images/noimage.png'}"
+                <img th:src="${product.image != null ? '/uploads/product/' + product.image : '/images/noimage.png'}"
                      class="img-fluid border rounded shadow-sm"
+                     style="max-height: 360px; object-fit: cover; width: 100%;"
                      alt="商品画像">
 
             </div>
@@ -109,34 +110,23 @@
 
                 <!-- ▼ カートボタン（在庫ありの場合のみ表示） -->
                 <div th:if="${product.stock > 0}">
-                    <button class="btn btn-primary w-100 py-2"
-                            onclick="addToCart([[${product.id}]])">
-                        カートに追加
-                    </button>
+
+                    <form th:action="@{'/cart/add/' + ${product.id}}"
+                          method="post">
+
+                        <button type="submit"
+                                class="btn btn-primary w-100 py-2">
+                            カートに追加
+                        </button>
+
+                    </form>
+
                 </div>
 
                 <!-- ▼ 在庫なしの場合のボタン -->
                 <div th:if="${product.stock == 0}" class="mt-3">
                     <button class="btn btn-secondary w-100 py-2" disabled>在庫なし</button>
                 </div>
-
-                <script>
-                    function addToCart(productId) {
-                        fetch(`/api/cart/add/${productId}`, {
-                            method: "POST"
-                        })
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error("カート追加に失敗しました");
-                                }
-                                alert("カートに追加しました");
-                            })
-                            .catch(error => {
-                                console.error(error);
-                                alert("エラーが発生しました");
-                            });
-                    }
-                </script>
 
                 <a href="/products" class="btn btn-outline-secondary w-100 mt-2">
                     商品一覧に戻る
@@ -152,7 +142,7 @@
                         <a th:href="@{'/products/' + ${p.id}}" class="text-decoration-none text-dark">
 
                             <div class="card border-0">
-                                <img th:src="${p.image != null ? '/uploads/' + p.image : '/images/noimage.png'}"
+                                <img th:src="${p.image != null ? '/uploads/product/' + p.image : '/images/noimage.png'}"
                                      class="card-img-top"
                                      style="height: 80px; object-fit: cover; border-radius: 6px;">
 
