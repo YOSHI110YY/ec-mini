@@ -1,10 +1,16 @@
-# ec-mini
+# Fit Deli
 
-Spring Boot / Thymeleaf / MySQL を使用して開発したECサイトです。
+Spring Boot + Thymeleaf で開発した食品ECサイトです。
+
+冷凍弁当の販売をイメージし、
+商品一覧・カート・注文機能・管理画面を実装しています。
+
+---
 
 ## URL
 
-※ ローカル環境で動作確認
+GitHub:
+https://github.com/YOSHI110YY/ec-mini
 
 ---
 
@@ -12,12 +18,11 @@ Spring Boot / Thymeleaf / MySQL を使用して開発したECサイトです。
 
 - Java 17
 - Spring Boot
-- Thymeleaf
 - Spring Security
-- MySQL
+- Thymeleaf
 - Bootstrap 5
+- MySQL
 - Maven
-- Git / GitHub
 
 ---
 
@@ -25,56 +30,62 @@ Spring Boot / Thymeleaf / MySQL を使用して開発したECサイトです。
 
 ### ユーザー側
 
-- 商品一覧
-- 商品詳細
-- 商品検索
-- カート機能
-- 注文機能
 - ログイン / ログアウト
+- 商品一覧表示
+- カテゴリ検索
+- 商品詳細表示
+- カート機能
+- 注文確認
+- 注文完了
+- 注文履歴表示
+- 最近見た商品表示
 
 ### 管理者側
 
 - 商品管理
-- 商品登録 / 編集 / 削除
-- 商品検索
-- ページング
 - 注文管理
-- 注文ステータス変更
-- Dashboard表示
-- 在庫状態表示
+- 注文ステータス更新
+- ダッシュボード表示
 
 ---
 
 ## 工夫した点
 
-- Thymeleaf の fragment を利用し、
-  header / sidebar を共通化して
-  管理画面全体の UI を統一しました。
-
-- 注文ステータス変更と Dashboard を連動させ、
-  未発送件数がリアルタイムで反映されるようにしました。
-
-- Bootstrap を利用し、
-  管理画面を見やすく整理しました。
+- Shopify風の食品ECデザインを意識し、UIを統一
+- 商品画像・カードUI・注文導線を改善
+- レスポンシブ対応を意識してBootstrapで実装
+- 注文ステータスと管理画面を連動
 
 ---
 
 ## 苦労した点
 
-- Thymeleaf のレイアウト共通化で
-  fragment の循環参照が発生し、
-  TemplateEngine エラーの切り分けに苦労しました。
-
-- 商品画像アップロード時の
-  multipart/form-data や update 処理で
-  400 エラーの修正に苦労しました。
+- レイアウト共通化時に循環参照が発生し、
+  画面構成の見直しを行った
+- 商品画像のパス管理と静的リソース構成の調整
+- Thymeleaf のテンプレート構造整理
 
 ---
 
-## 今後追加したい機能
+## 起動方法
 
-- レコメンド機能
-- 最近見た商品
-- レビュー機能
-- グラフ機能
-- AWS デプロイ
+```bash
+git clone https://github.com/YOSHI110YY/ec-mini.git
+```
+
+```bash
+cd ec-mini
+```
+
+```bash
+mvn spring-boot:run
+```
+
+---
+
+## 今後改善したい点
+
+- 決済機能の追加
+- お気に入り機能
+- 商品レビュー機能
+- Docker対応
