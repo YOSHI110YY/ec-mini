@@ -146,13 +146,16 @@
 
                     <tbody>
                     <tr th:each="item : ${order.items}">
-                        <td th:text="${item.product.name}"></td>
+                        <td th:text="${item.productName}"></td>
+
                         <td th:text="${item.quantity}"></td>
+
                         <td>
                             <span th:text="${#numbers.formatInteger(item.price, 0, 'COMMA')}"></span>円
                         </td>
+
                         <td class="fw-bold">
-                            <span th:text="${#numbers.formatInteger(item.price * item.quantity, 0, 'COMMA')}"></span>円
+                            <span th:text="${#numbers.formatInteger(item.subtotal, 0, 'COMMA')}"></span>円
                         </td>
                     </tr>
                     </tbody>
@@ -166,6 +169,12 @@
     </div>
 
 </div>
+
+<footer class="text-center text-muted py-4 mt-5">
+    <small>
+        © 2026 Fit Deli. Healthy frozen meals for everyday life.
+    </small>
+</footer>
 
 </body>
 </html>

@@ -3,18 +3,17 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
   <meta charset="UTF-8">
 
-  <title>ダッシュボード</title>
+  <title>管理ダッシュボード</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
         rel="stylesheet">
 
   <style>
-
     body {
       margin: 0;
+      background: #f5f6f8;
     }
 
     .wrapper {
@@ -31,124 +30,119 @@
 
     .main-content {
       flex: 1;
-      padding: 20px;
+      padding: 24px;
     }
 
-  </style>
+    .dashboard-card {
+      border: none;
+      border-radius: 14px;
+    }
 
+    .btn {
+      border-radius: 10px;
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- header -->
 <div th:replace="admin/fragments/header :: header"></div>
 
 <div class="wrapper">
 
-  <!-- sidebar -->
   <div th:replace="admin/fragments/sidebar :: sidebar"></div>
 
-  <!-- content -->
   <div class="main-content">
 
     <h2 class="mb-4 border-bottom pb-2">
-      ダッシュボード
+      管理ダッシュボード
     </h2>
 
-    <div class="row g-3">
+    <div class="row g-4 mb-4">
 
-      <!-- 今日の売上 -->
-      <div class="col-md-4">
-
-        <div class="card shadow-sm p-3">
-
-          <h5 class="fw-bold">
-            今日の売上
-          </h5>
-
-          <p class="fs-3 fw-bold text-primary">
-
-            ¥<span th:text="${todaySales}">
-                            0
-                        </span>
-
-          </p>
-
-        </div>
-
-      </div>
-
-      <!-- 注文数 -->
       <div class="col-md-3">
-
-        <div class="card shadow-sm p-3">
-
-          <h5 class="fw-bold">
-            注文数
-          </h5>
-
-          <p class="fs-3 fw-bold text-info">
-
-                        <span th:text="${orderCount}">
-                            0
-                        </span> 件
-
-          </p>
-
-        </div>
-
-      </div>
-
-      <!-- 在庫切れ -->
-      <div class="col-md-3">
-
-        <div class="card shadow-sm p-3">
-
-          <h5 class="fw-bold">
-            在庫切れ
-          </h5>
-
-          <p class="fs-3 fw-bold text-danger">
-
-                        <span th:text="${outOfStockCount}">
-                            0
-                        </span> 件
-
-          </p>
-
-        </div>
-
-      </div>
-
-      <!-- 新着注文 -->
-      <div class="col-md-3">
-
-        <div class="card shadow-sm p-3">
-
-          <h5 class="fw-bold">
-            新着注文
-          </h5>
-
-          <p class="fs-3 fw-bold text-warning">
-
-                        <span th:text="${newOrders}">
-                            0
-                        </span> 件
-
-          </p>
-
-        </div>
-
-        <div class="col-md-3">
-          <div class="card shadow-sm p-3">
-            <h5 class="fw-bold">発送待ち</h5>
-
-            <p class="fs-3 fw-bold text-warning">
-              <span th:text="${pendingShipments}">0</span> 件
-            </p>
+        <div class="card dashboard-card shadow-sm">
+          <div class="card-body">
+            <p class="text-muted mb-1">商品数</p>
+            <h3 class="fw-bold mb-0" th:text="${productCount}">0</h3>
           </div>
         </div>
+      </div>
 
+      <div class="col-md-3">
+        <div class="card dashboard-card shadow-sm">
+          <div class="card-body">
+            <p class="text-muted mb-1">注文数</p>
+            <h3 class="fw-bold mb-0" th:text="${orderCount}">0</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card dashboard-card shadow-sm">
+          <div class="card-body">
+            <p class="text-muted mb-1">未発送</p>
+            <h3 class="fw-bold mb-0" th:text="${pendingShipments}">0</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card dashboard-card shadow-sm">
+          <div class="card-body">
+            <p class="text-muted mb-1">在庫切れ</p>
+            <h3 class="fw-bold mb-0" th:text="${outOfStockCount}">0</h3>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row g-4">
+
+      <div class="col-md-4">
+        <div class="card dashboard-card shadow-sm h-100">
+          <div class="card-body">
+            <h4 class="fw-bold mb-3">商品管理</h4>
+            <p class="text-muted">
+              商品一覧・登録・編集・削除を行います。
+            </p>
+            <a href="/admin/products"
+               class="btn btn-primary w-100 mt-3">
+              商品管理へ
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card dashboard-card shadow-sm h-100">
+          <div class="card-body">
+            <h4 class="fw-bold mb-3">注文管理</h4>
+            <p class="text-muted">
+              注文一覧・詳細・ステータス変更を行います。
+            </p>
+            <a href="/admin/orders"
+               class="btn btn-primary w-100 mt-3">
+              注文管理へ
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card dashboard-card shadow-sm h-100">
+          <div class="card-body">
+            <h4 class="fw-bold mb-3">ユーザー画面</h4>
+            <p class="text-muted">
+              Fit Deli の商品一覧ページを確認します。
+            </p>
+            <a href="/products"
+               class="btn btn-outline-primary w-100 mt-3">
+              ユーザー画面へ
+            </a>
+          </div>
+        </div>
       </div>
 
     </div>

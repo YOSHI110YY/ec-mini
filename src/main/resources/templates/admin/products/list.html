@@ -33,13 +33,10 @@
             flex: 1;
             padding: 20px;
         }
-
-        <style>
-
-         body {
-             margin: 0;
-         }
-
+        body {
+            margin: 0;
+            background: #f5f6f8;
+        }
         .wrapper {
             display: flex;
             min-height: calc(100vh - 56px);
@@ -99,9 +96,6 @@
     </style>
 
 
-
-    </style>
-
 </head>
 
 <body>
@@ -112,12 +106,20 @@
 
     <div th:replace="admin/fragments/sidebar :: sidebar"></div>
 
-    <div class="main-content">
+        <div class="main-content">
 
+            <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
 
-        <h2 class="mb-4 border-bottom pb-2">
-            商品管理
-        </h2>
+                <h2 class="mb-0">
+                    商品管理
+                </h2>
+
+                <a href="/admin/products/new"
+                   class="btn btn-primary">
+                    ＋ 商品を追加
+                </a>
+
+            </div>
 
         <div th:if="${param.success}"
              class="alert alert-success">
@@ -142,10 +144,11 @@
             <div class="col-md-3">
                 <select name="category" class="form-select">
                     <option value="">カテゴリを選択</option>
-                    <option value="FOOD" th:selected="${category == 'FOOD'}">FOOD</option>
-                    <option value="BOOKS" th:selected="${category == 'BOOKS'}">BOOKS</option>
-                    <option value="PC ACCESSORIES" th:selected="${category == 'PC ACCESSORIES'}">PC ACCESSORIES</option>
-                    <option value="STATIONERY" th:selected="${category == 'STATIONERY'}">STATIONERY</option>
+                    <option value="MAIN" th:selected="${category == 'MAIN'}">MAIN</option>
+                    <option value="LOW CARB" th:selected="${category == 'LOW CARB'}">LOW CARB</option>
+                    <option value="PROTEIN" th:selected="${category == 'PROTEIN'}">PROTEIN</option>
+                    <option value="SIDE DISH" th:selected="${category == 'SIDE DISH'}">SIDE DISH</option>
+
                 </select>
             </div>
 
@@ -164,16 +167,13 @@
 
         </form>
 
-        <a href="/admin/products/new"
-           class="btn btn-primary mb-3">
+        <div class="card shadow-sm border-0 rounded-4">
 
-            ＋ 商品を追加
+            <div class="card-body p-0">
 
-        </a>
+                <div class="table-responsive d-none d-md-block">
 
-        <div class="table-responsive d-none d-md-block">
-
-            <table class="table table-striped table-bordered table-hover align-middle">
+            <table class="table table-hover align-middle mb-0">
 
                 <thead>
 
@@ -231,7 +231,7 @@
                     <td>
 
                         <a th:href="@{'/admin/products/edit/' + ${p.id}}"
-                           class="btn btn-sm btn-outline-primary">
+                           class="btn btn-sm btn-primary">
                             編集
                         </a>
 
@@ -295,7 +295,12 @@
         
     </div>
 
+        </div>
+
+
 </div>
+</div>
+
 
 </body>
 </html>

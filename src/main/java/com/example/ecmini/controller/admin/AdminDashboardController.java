@@ -17,6 +17,9 @@ public class AdminDashboardController {
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
 
+        model.addAttribute("productCount",
+                dashboardService.getProductCount());
+
         model.addAttribute("todaySales",
                 dashboardService.getTodaySales());
 

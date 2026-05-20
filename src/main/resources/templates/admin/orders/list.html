@@ -15,6 +15,7 @@
 
         body {
             margin: 0;
+            background: #f5f6f8;
         }
 
         .wrapper {
@@ -52,71 +53,78 @@
             注文管理
         </h2>
 
-        <div class="table-responsive">
+        <div class="card shadow-sm border-0 rounded-4">
+            <div class="card-body p-0">
 
-            <table class="table table-striped table-bordered table-hover align-middle">
+                <div class="table-responsive">
 
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>注文者</th>
-                    <th>合計金額</th>
-                    <th>注文日時</th>
-                    <th>ステータス</th>
-                    <th>操作</th>
-                </tr>
-                </thead>
+                    <table class="table table-hover align-middle mb-0">
 
-                <tbody>
-                <tr th:each="o : ${orders}">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>注文者</th>
+                            <th>合計金額</th>
+                            <th>注文日時</th>
+                            <th>ステータス</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
 
-                    <td th:text="${o.id}"></td>
+                        <tbody>
+                        <tr th:each="o : ${orders}">
 
-                    <td th:text="${o.username}"></td>
+                            <td th:text="${o.id}"></td>
 
-                    <td th:text="${o.totalPrice} + '円'"></td>
+                            <td th:text="${o.username}"></td>
 
-                    <td th:text="${#temporals.format(o.createdAt, 'yyyy/MM/dd HH:mm')}"></td>
+                            <td th:text="${o.totalPrice} + '円'"></td>
 
-                    <td>
+                            <td th:text="${#temporals.format(o.createdAt, 'yyyy/MM/dd HH:mm')}"></td>
 
-    <span th:if="${o.status == 'ORDERED'}"
-          class="badge bg-warning text-dark">
-        ORDERED
-    </span>
-                        <span th:if="${o.status == 'SHIPPED'}"
-                              class="badge bg-success">
-        SHIPPED
-    </span>
+                            <td>
 
-                        <span th:if="${o.status == 'CANCELED'}"
-                              class="badge bg-danger">
-        CANCELED
-    </span>
+                           <span th:if="${o.status == 'ORDERED'}"
+                                 class="badge bg-warning text-dark">
+                                 ORDERED
+                           </span>
 
-                        <span th:if="${o.status == null}"
-                              class="badge bg-secondary">
-        未設定
-    </span>
+                                <span th:if="${o.status == 'SHIPPED'}"
+                                      class="badge bg-success">
+                                     SHIPPED
+                               </span>
 
-                    </td>
-                    <td>
-                        <a th:href="@{'/admin/orders/' + ${o.id}}"
-                           class="btn btn-sm btn-outline-secondary">
-                            詳細
-                        </a>
+                                <span th:if="${o.status == 'CANCELED'}"
+                                      class="badge bg-danger">
+                                      CANCELED
+                                </span>
 
-                        <a th:href="@{'/admin/orders/ship/' + ${o.id}}"
-                           class="btn btn-sm btn-success">
-                            発送済み
-                        </a>
-                    </td>
+                                <span th:if="${o.status == null}"
+                                      class="badge bg-secondary">
+                                      未設定
+                                </span>
+                            </td>
+                            <td>
+                                <a th:href="@{'/admin/orders/' + ${o.id}}"
+                                   class="btn btn-sm btn-outline-secondary">
+                                    詳細
+                                </a>
 
-                </tr>
-                </tbody>
+                                <a th:if="${o.status != 'SHIPPED'}"
+                                   th:href="@{'/admin/orders/ship/' + ${o.id}}"
+                                   class="btn btn-sm btn-success">
+                                    発送済み
+                                </a>
 
-            </table>
+                            </td>
 
+                        </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
         </div>
 
     </div>
@@ -125,3 +133,4 @@
 
 </body>
 </html>
+

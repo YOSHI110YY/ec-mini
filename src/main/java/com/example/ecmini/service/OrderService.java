@@ -51,6 +51,7 @@ public class OrderService {
             // 注文アイテム保存
             OrderItem oi = new OrderItem();
 
+            oi.setOrder(order);
             oi.setProductId(ci.getProductId());
             oi.setProductName(ci.getName());
             oi.setPrice(ci.getPrice());
@@ -64,12 +65,14 @@ public class OrderService {
     }
 
     public List<Order> getOrdersByUser(String username) {
+
         return orderRepository.findByUsername(username);
     }
     public Order getOrderByIdAndUser(Long id, String username) {
-        return orderRepository.findByIdAndUsername(id, username)
-                .orElseThrow(() -> new RuntimeException("注文が見つかりません"));
+        return orderRepository.findByIdAndUsernameWithItems(id, username)
+                .orElse(null);
     }
+
     public List<Order> findAll() {
         return orderRepository.findAllByOrderByCreatedAtDesc();
     }

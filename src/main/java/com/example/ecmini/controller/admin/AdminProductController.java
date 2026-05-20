@@ -8,9 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.validation.BindingResult;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/admin/products")
@@ -60,10 +57,20 @@ public class AdminProductController {
     // 商品登録処理
     @PostMapping("/new")
     public String createProduct(
-            @ModelAttribute Product product,
-            @RequestParam("image") MultipartFile imageFile
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) Integer price,
+            @RequestParam(required = false) Integer stock,
+            @RequestParam(required = false) String category,
+            @RequestParam(value = "image", required = false) MultipartFile imageFile
     ) {
+        Product product = new Product();
+        product.setName(name);
+        product.setPrice(price);
+        product.setStock(stock);
+        product.setCategory(category);
+
         productService.create(product, imageFile);
+
         return "redirect:/admin/products";
     }
 
@@ -88,13 +95,6 @@ public class AdminProductController {
             @RequestParam(required = false) String category,
             @RequestParam(value = "image", required = false) MultipartFile imageFile
     ) {
-        System.out.println("id = " + id);
-        System.out.println("name = " + name);
-        System.out.println("price = " + price);
-        System.out.println("stock = " + stock);
-        System.out.println("category = " + category);
-        System.out.println("imageFile = " + imageFile);
-
         Product product = new Product();
         product.setName(name);
         product.setPrice(price);
@@ -132,6 +132,5 @@ public class AdminProductController {
         model.addAttribute("product", product);
         return "admin/products/detail";
     }
-
-
+    
 }

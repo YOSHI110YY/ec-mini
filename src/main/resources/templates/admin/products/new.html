@@ -15,6 +15,7 @@
 
         body {
             margin: 0;
+            background: #f5f6f8;
         }
 
         .wrapper {
@@ -33,6 +34,16 @@
             flex: 1;
             padding: 20px;
         }
+        .form-card {
+            max-width: 720px;
+            border-radius: 14px;
+            border: none;
+        }
+
+        .btn {
+            border-radius: 10px;
+        }
+
 
     </style>
 
@@ -55,9 +66,17 @@
             商品登録
         </h2>
 
+        <div class="card form-card shadow-sm">
+
+            <div class="card-body p-4">
+
         <form th:action="@{/admin/products/new}"
               method="post"
               enctype="multipart/form-data">
+
+            <input type="hidden"
+                   th:name="${_csrf.parameterName}"
+                   th:value="${_csrf.token}">
 
             <!-- 商品名 -->
             <div class="mb-3">
@@ -156,6 +175,8 @@
 
 
         </form>
+            </div>
+        </div>
 
     </div>
 

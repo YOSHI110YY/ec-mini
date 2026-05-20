@@ -15,6 +15,7 @@
 
         body {
             margin: 0;
+            background: #f5f6f8;
         }
 
         .wrapper {
@@ -32,6 +33,9 @@
         .main-content {
             flex: 1;
             padding: 20px;
+        }
+        .btn {
+            border-radius: 10px;
         }
 
     </style>
@@ -55,7 +59,7 @@
             商品詳細
         </h2>
 
-        <div class="card shadow-sm">
+        <div class="card shadow-sm border-0 rounded-4">
 
             <div class="card-body">
 
@@ -66,72 +70,66 @@
                         <img th:if="${product.image != null}"
                              th:src="@{'/uploads/product/' + ${product.image}}"
                              class="img-fluid rounded"
-                             style="max-height: 260px; object-fit: cover;">
+                             style="width:100%; max-height: 320px; object-fit: cover; border-radius: 12px;">
 
                         <img th:unless="${product.image != null}"
                              src="/images/noimage.png"
                              class="img-fluid rounded"
-                             style="max-height: 260px; object-fit: cover;">
+                             style="width:100%; max-height: 320px; object-fit: cover; border-radius: 12px;">
 
                     </div>
 
                     <div class="col-md-8">
 
-                       <table class="table table-bordered">
+                        <table class="table table-bordered align-middle mb-0">
 
-                           <tr>
-                               <th style="width: 180px;">ID</th>
-                               <td th:text="${product.id}"></td>
-                           </tr>
+                            <tr>
+                                <th style="width: 180px;">ID</th>
+                                <td th:text="${product.id}"></td>
+                            </tr>
 
-                           <tr>
-                               <th>商品名</th>
-                               <td th:text="${product.name}"></td>
-                           </tr>
+                            <tr>
+                                <th>商品名</th>
+                                <td th:text="${product.name}"></td>
+                            </tr>
 
-                           <tr>
-                               <th>価格</th>
-                               <td th:text="${product.price} + '円'"></td>
-                           </tr>
+                            <tr>
+                                <th>価格</th>
+                                <td th:text="${product.price} + '円'"></td>
+                            </tr>
 
-                           <tr>
-                               <th>在庫</th>
-                               <td th:text="${product.stock}"></td>
-                           </tr>
+                            <tr>
+                                <th>在庫</th>
+                                <td th:text="${product.stock}"></td>
+                            </tr>
 
-                           <tr>
-                               <th>カテゴリ</th>
-                               <td th:text="${product.category}"></td>
-    </tr>
+                            <tr>
+                                <th>カテゴリ</th>
+                                <td th:text="${product.category}"></td>
+                            </tr>
 
-    <tr>
-                               <th>説明</th>
-        <td style="white-space: pre-wrap;"
-            th:text="${product.description}">
-                               </td>
-                           </tr>
+                            <tr>
 
-    <tr>
-                               <th>状態</th>
-                               <td>
-                                   <span th:if="${product.stock > 0}"
-                                         class="badge bg-success">
-                                       在庫あり
-            </span>
+                                <th>説明</th>
+                                <td style="white-space: pre-wrap;"
+                                    th:text="${product.description}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>状態</th>
+                                <td>
+                                    <span th:if="${product.stock > 0}"
+                                          class="badge bg-success">
+                                        在庫あり
+                                    </span>
+                                    <span th:if="${product.stock <= 0}"
+                                          class="badge bg-danger">
+                                        在庫切れ
+                                    </span>
+                                </td>
+                            </tr>
 
-                                   <span th:if="${product.stock <= 0}"
-                                         class="badge bg-danger">
-                                       在庫切れ
-            </span>
-                               </td>
-                           </tr>
-
-                       </table>
-
-
-
-
-
+                        </table>
                         <div class="mt-3">
 
                             <a th:href="@{'/admin/products/edit/' + ${product.id}}"

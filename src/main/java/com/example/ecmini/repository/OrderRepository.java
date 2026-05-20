@@ -3,6 +3,7 @@ package com.example.ecmini.repository;
 import com.example.ecmini.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -22,5 +23,9 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     long countByStatus(String status);
 
     long countByCreatedAtAfter(LocalDateTime dateTime);
+
+    @Query("SELECT o FROM Order o LEFT JOIN FETCH o.items WHERE o.id = :id AND o.username = :username")
+    Optional<Order> findByIdAndUsernameWithItems(@Param("id") Long id,
+                                                 @Param("username") String username);
 
 }

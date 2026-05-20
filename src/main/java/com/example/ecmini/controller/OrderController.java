@@ -31,7 +31,7 @@ public class OrderController {
         model.addAttribute("items", cart.getItems());
         model.addAttribute("total", cart.getTotalPrice());
 
-        return "order/confirm";
+        return "orders/confirm";
     }
 
     @GetMapping("/orders")
@@ -42,7 +42,7 @@ public class OrderController {
 
         model.addAttribute("orders", orders);
 
-        return "order/list";
+        return "orders/list";
     }
 
 
@@ -60,7 +60,7 @@ public class OrderController {
         }
 
         model.addAttribute("order", order);
-        return "order/detail";
+        return "orders/detail";
     }
     @PostMapping("/orders/complete")
     public String completeOrder(HttpSession session, Model model, Authentication auth) {
@@ -77,7 +77,7 @@ public class OrderController {
         // 完了画面へ渡す
         model.addAttribute("order", order);
 
-        return "order/complete";
+        return "orders/complete";
     }
 
 }
