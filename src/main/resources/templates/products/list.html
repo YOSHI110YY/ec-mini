@@ -67,6 +67,15 @@
             overflow: hidden;
         }
 
+        .card-body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card form,
+        .product-card .btn-secondary {
+            margin-top: auto;
+        }
 
     </style>
 
@@ -150,6 +159,39 @@
     <main class="col-md-9">
         <h2 class="mb-4 border-bottom pb-2">商品一覧</h2>
 
+        <form th:action="@{/products}"
+              method="get"
+              class="row g-2 mb-4 bg-white p-3 rounded-4 shadow-sm">
+
+            <div class="col-md-8">
+
+                <input type="text"
+                       name="name"
+                       class="form-control"
+                       placeholder="商品名で検索"
+                       th:value="${param.name}">
+
+            </div>
+
+            <div class="col-md-2">
+
+                <button class="btn btn-primary w-100">
+                    検索
+                </button>
+
+            </div>
+
+            <div class="col-md-2">
+
+                <a href="/products"
+                   class="btn btn-outline-secondary w-100">
+                    リセット
+                </a>
+
+            </div>
+
+        </form>
+
         <div class="row g-4"
              th:if="${products != null and !#lists.isEmpty(products)}">
 
@@ -176,9 +218,14 @@
                     </h6>
 
                 </a>
-                        <p class="card-text text-primary mb-2">
+        <!--badge追加-->
+                <span class="badge bg-light text-dark border mb-2"
+                      th:text="${product.category}">
+                </span>
+
+                <p class="card-text text-primary mb-2">
                             <span th:text="${#numbers.formatInteger(product.price, 0, 'COMMA')}"></span> 円
-                        </p>
+                </p>
 
                         <p th:if="${product.stock > 0}" class="text-success mb-1" style="font-size: 0.8rem;">
                             在庫あり（残り [[${product.stock}]] 点）

@@ -4,6 +4,30 @@
     <meta charset="UTF-8">
     <title th:text="${product.name}">商品詳細</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #f5f6f8;
+        }
+
+        main {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 24px;
+        }
+
+        .btn {
+            border-radius: 10px;
+        }
+
+        .product-detail-image {
+            max-height: 420px;
+            object-fit: cover;
+            width: 100%;
+            border-radius: 14px;
+        }
+    </style>
+
 </head>
 
 <body class="container-fluid">
@@ -11,7 +35,7 @@
 <!-- ナビバー（一覧ページと統一） -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
     <div class="container-fluid">
-        <a class="navbar-brand ms-3" href="/mypage">Office Station</a>
+        <a class="navbar-brand ms-3" href="/mypage">Fit Deli</a>
 
         <!-- スマホ用メニューボタン -->
         <button class="btn btn-outline-light d-md-none me-2"
@@ -85,8 +109,7 @@
             <!-- 画像（スマホでは上、PCでは左） -->
             <div class="col-12 col-md-5 mb-3">
                 <img th:src="${product.image != null ? '/uploads/product/' + product.image : '/images/noimage.png'}"
-                     class="img-fluid border rounded shadow-sm"
-                     style="max-height: 360px; object-fit: cover; width: 100%;"
+                     class="img-fluid border shadow-sm product-detail-image"
                      alt="商品画像">
 
             </div>
