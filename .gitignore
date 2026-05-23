@@ -31,3 +31,14 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# secret
+application-secret.properties
+.en
