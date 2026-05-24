@@ -21,12 +21,20 @@ public class CustomUserDetailsService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // 入力された username を元に DB からユーザーを検索。
+
+        System.out.println("LOGIN TRY username=" + username);
 
         User user = userRepository.findByUsername(username);
-        // DB からユーザーを取得。
+
+        System.out.println("DB USER FOUND=" + (user != null));
+
+        if (user != null) {
+            System.out.println("DB ROLE=" + user.getRole());
+            System.out.println("DB PASS LENGTH=" + user.getPassword().length());
+        }
 
         if (user == null) {
             throw new UsernameNotFoundException("ユーザーが見つかりません: " + username);
@@ -34,14 +42,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getUsername())
-                // Spring Security が扱える UserDetails に変換。
-
                 .password(user.getPassword())
-                // DB に保存されている BCrypt パスワードをそのまま渡す。
-
                 .authorities(AuthorityUtils.createAuthorityList("ROLE_" + user.getRole()))
-                // DB の role（USER / ADMIN）を Spring Security の形式（ROLE_USER）に変換。
-
                 .build();
     }
 }
