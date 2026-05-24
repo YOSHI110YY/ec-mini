@@ -74,6 +74,13 @@ public class ProductServiceImpl implements ProductService {
 
         Product product = new Product();
 
+        product.setName(form.getName());
+        product.setPrice(form.getPrice());
+        product.setStock(form.getStock());
+        product.setCategory(form.getCategory());
+        product.setDescription(form.getDescription());
+
+        // 画像処理
         applyImage(product, imageFile);
 
         productRepository.save(product);
