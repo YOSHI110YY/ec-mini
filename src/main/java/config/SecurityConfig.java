@@ -1,6 +1,7 @@
 package com.example.ecmini.config;
 // 目的：設定クラスをまとめるパッケージ。
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -75,4 +76,11 @@ public class SecurityConfig {
                 .and()
                 .build();
     }
+    @Bean
+    public CommandLineRunner printPassword(PasswordEncoder encoder) {
+        return args -> {
+            System.out.println("PASSWORD_HASH=" + encoder.encode("password"));
+        };
+    }
+
 }
