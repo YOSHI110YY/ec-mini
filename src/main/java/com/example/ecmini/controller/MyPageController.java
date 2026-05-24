@@ -3,6 +3,7 @@ package com.example.ecmini.controller;
 import com.example.ecmini.entity.User; // Userエンティティをインポート
 import com.example.ecmini.repository.UserRepository; // Repositoryをインポート
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +18,9 @@ public class MyPageController {
     @GetMapping("/mypage")
     public String mypage(Model model, Authentication authentication) {
 
-        if (authentication != null && authentication.isAuthenticated()) {
+        if (authentication != null
+                && authentication.isAuthenticated()
+                && !(authentication instanceof AnonymousAuthenticationToken)) {
             // 1. ログイン中のユーザー名を取得
             String username = authentication.getName();
             // 2. DBからそのユーザーの情報を丸ごと取得
