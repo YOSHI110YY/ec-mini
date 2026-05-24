@@ -58,6 +58,17 @@ https://github.com/YOSHI110YY/ec-mini
 
 ---
 
+## 設計・実装で意識した点
+
+- Controller / Service / Repository の責務分離
+- Entityを画面入力に直接使用せず、ProductFormを用いたDTO設計
+- Bean Validationによる入力チェック
+- BindingResultを用いたフォームエラー制御
+- GlobalExceptionHandlerによる例外処理の共通化
+- ProductNotFoundExceptionによる独自例外の定義
+- application-secret.propertiesによる機密情報の分離
+- 商品登録・更新処理の共通化による重複コード削減
+
 ## 苦労した点
 
 - レイアウト共通化時に循環参照が発生し、
