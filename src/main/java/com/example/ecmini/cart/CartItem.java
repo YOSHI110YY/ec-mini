@@ -14,8 +14,15 @@ public class CartItem {
         this.productId = product.getId();
         this.name = product.getName();
         this.price = product.getPrice();
-        this.image = product.getImage();
-        this.quantity = 1; // 初期値
+
+        // 修正
+        if (product.getImage() != null) {
+            this.image = product.getImage();
+        } else {
+            this.image = "noimage.png";
+        }
+
+        this.quantity = 1;
     }
 
     public Long getProductId() {
