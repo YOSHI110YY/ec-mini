@@ -109,7 +109,7 @@
             <!-- 画像（スマホでは上、PCでは左） -->
             <div class="col-12 col-md-5 mb-3">
                 <img th:if="${product.image != null}"
-                     th:src="@{'/uploads/product/' + ${product.image}}"
+                     th:src="@{'/uploads/product/' + ${p.image}}"
                      class="img-fluid border shadow-sm product-detail-image"
                      alt="商品画像">
 
@@ -171,7 +171,7 @@
 
                             <div class="card border-0">
                                 <img th:if="${p.image != null}"
-                                     th:src="@{'/uploads/product/' + ${product.image}}"
+                                     th:src="@{'/uploads/product/' + ${p.image}}"
                                      class="card-img-top"
                                      style="height: 80px; object-fit: cover; border-radius: 6px;">
 
