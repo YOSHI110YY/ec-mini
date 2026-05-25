@@ -58,7 +58,6 @@ https://github.com/YOSHI110YY/ec-mini
 - Railway MySQLとの接続
 - Dockerによるコンテナ化
 - 環境変数による機密情報管理
-- 
 ---
 
 ## 工夫した点
