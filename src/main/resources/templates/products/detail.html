@@ -107,15 +107,19 @@
         <div class="row">
 
             <!-- 画像（スマホでは上、PCでは左） -->
-            <div class="col-12 col-md-5 mb-3">
-                <img th:src="@{/images/noimage.png}"
-                     class="img-fluid border shadow-sm product-detail-image"
-                     alt="商品画像">
-                     class="img-fluid border shadow-sm product-detail-image"
-                     alt="商品画像">
+    <div class="col-12 col-md-5 mb-3">
 
-            </div>
+        <img th:if="${product.image != null}"
+         th:src="@{'/uploads/product/' + ${product.image}}"
+         class="img-fluid border shadow-sm product-detail-image"
+         alt="商品画像">
 
+        <img th:unless="${product.image != null}"
+         th:src="@{/images/noimage.png}"
+         class="img-fluid border shadow-sm product-detail-image"
+         alt="NO IMAGE">
+
+    </div>
             <!-- 商品情報 -->
             <div class="col-12 col-md-7">
 
