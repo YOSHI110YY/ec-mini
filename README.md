@@ -6,7 +6,27 @@ Spring Boot + Thymeleaf で開発した食品ECサイトです。
 商品一覧・カート・注文機能・管理画面を実装しています。
 
 ---
+## 画面イメージ
 
+### ログイン画面
+![login](docs/images/login.png)
+
+### 商品一覧
+![products](docs/images/products.png)
+
+### 商品詳細
+![product-detail](docs/images/product-detail.png)
+
+### カート
+![cart](docs/images/cart.png)
+
+### 注文確認
+![order-confirm](docs/images/order-confirm.png)
+
+### 注文完了
+![order-complete](docs/images/order-complete.png)
+
+---
 ## URL
 
 GitHub:
