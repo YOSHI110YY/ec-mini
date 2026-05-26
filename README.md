@@ -1,36 +1,16 @@
 # Fit Deli
 
-Spring Boot + Thymeleaf で開発した食品ECサイトです。
-
-冷凍弁当の販売をイメージし、
-商品一覧・カート・注文機能・管理画面を実装しています。
+Healthy frozen meals for everyday life.
 
 ---
-## 画面イメージ
 
-### ログイン画面
-![login](docs/images/login.png)
+## アプリ概要
 
-### 商品一覧
-![products](docs/images/products.png)
+Fit Deli は、健康志向ユーザー向けの冷凍宅配弁当 EC サイトです。
 
-### 商品詳細
-![product-detail](docs/images/product-detail.png)
+ユーザーは商品閲覧、カート追加、注文、注文履歴確認を行うことができます。
 
-### カート
-![cart](docs/images/cart.png)
-
-### 注文確認
-![order-confirm](docs/images/order-confirm.png)
-
-### 注文完了
-![order-complete](docs/images/order-complete.png)
-
----
-## URL
-
-GitHub:
-https://github.com/YOSHI110YY/ec-mini
+Spring Boot を用いてバックエンドを構築し、Railway にデプロイしています。
 
 ---
 
@@ -42,7 +22,8 @@ https://github.com/YOSHI110YY/ec-mini
 - Thymeleaf
 - Bootstrap 5
 - MySQL
-- Maven
+- Railway
+- GitHub
 
 ---
 
@@ -52,13 +33,11 @@ https://github.com/YOSHI110YY/ec-mini
 
 - ログイン / ログアウト
 - 商品一覧表示
-- カテゴリ検索
 - 商品詳細表示
 - カート機能
-- 注文確認
-- 注文完了
+- 注文機能
 - 注文履歴表示
-- 最近見た商品表示
+- マイページ
 
 ### 管理者側
 
@@ -66,6 +45,28 @@ https://github.com/YOSHI110YY/ec-mini
 - 注文管理
 - 注文ステータス更新
 - ダッシュボード表示
+
+---
+
+## 画面イメージ
+
+### ログイン画面
+![login](docs/images/login.png)
+
+### 商品一覧画面
+![products](docs/images/products.png)
+
+### 商品詳細画面
+![product-detail](docs/images/product-detail.png)
+
+### カート画面
+![cart](docs/images/cart.png)
+
+### 注文確認画面
+![order-confirm](docs/images/order-confirm.png)
+
+### 注文完了画面
+![order-complete](docs/images/order-complete.png)
 
 ---
 
@@ -89,16 +90,35 @@ https://github.com/YOSHI110YY/ec-mini
 - application-secret.propertiesによる機密情報の分離
 - 商品登録・更新処理の共通化による重複コード削減
 
+---
+
 ## 苦労した点
 
-- レイアウト共通化時に循環参照が発生し、
-  画面構成の見直しを行った
+- レイアウト共通化時に循環参照が発生し、画面構成の見直しを行った
 - 商品画像のパス管理と静的リソース構成の調整
 - Thymeleaf のテンプレート構造整理
+- Railway デプロイ時の Docker / branch 管理
+
+---
+
+## URL
+
+### アプリ
+https://ec-mini-production.up.railway.app/
+
+### GitHub
+https://github.com/YOSHI110YY/ec-mini
 
 ---
 
 ## 起動方法
+
+### 必要環境
+
+- Java 17
+- MySQL 8
+
+### 起動手順
 
 ```bash
 git clone https://github.com/YOSHI110YY/ec-mini.git
@@ -120,3 +140,9 @@ mvn spring-boot:run
 - お気に入り機能
 - 商品レビュー機能
 - Docker対応
+
+---
+
+本アプリは、Java / Spring Boot の学習を目的として開発しました。
+
+今後も機能追加・UI改善を継続予定です。
