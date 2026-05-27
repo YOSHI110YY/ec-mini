@@ -119,7 +119,7 @@ PASS: password
 
 ### 管理者
 ID: admin
-PASS: adminpassoword
+PASS: passoword
 
 ---
 
