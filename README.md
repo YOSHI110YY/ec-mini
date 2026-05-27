@@ -68,6 +68,16 @@ Spring Boot を用いてバックエンドを構築し、Railway にデプロイ
 ### 注文完了画面
 ![order-complete](docs/images/order-complete.png)
 
+### 管理ダッシュボード
+![admin-dashboard](docs/images/admin-dashboard.png)
+
+### 商品管理
+![admin-products](docs/images/admin-products.png)
+
+### 注文管理
+![admin-orders](docs/images/admin-orders.png)
+
+
 ---
 
 ## 工夫した点
