@@ -114,11 +114,11 @@ https://github.com/YOSHI110YY/ec-mini
 ## テストアカウント
 
 ### 一般ユーザー
-ID: testuser
+ID: testuser　　
 PASS: password
 
 ### 管理者
-ID: admin
+ID: admin　　
 PASS: passoword
 
 ---
