@@ -111,6 +111,18 @@ https://github.com/YOSHI110YY/ec-mini
 
 ---
 
+## テストアカウント
+
+### 一般ユーザー
+ID: testuser
+PASS: password
+
+### 管理者
+ID: admin
+PASS: adminpassoword
+
+---
+
 ## 起動方法
 
 ### 必要環境
