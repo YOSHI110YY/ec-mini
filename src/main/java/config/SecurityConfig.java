@@ -42,16 +42,18 @@ public class SecurityConfig {
                 // .csrf(csrf -> csrf.disable())
 
                 .authorizeHttpRequests(auth -> auth
-                        // 【修正箇所】 管理者権限（ADMIN）がないとアクセスできないように変更
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-
-                        // 【追加】 マイページや注文関連は「ログイン（USER等）」が必要
                         .requestMatchers("/mypage", "/order/**", "/orders/**").authenticated()
-
-                        // 誰でもアクセスできるページ（商品一覧などはここに入れる）
-                        .requestMatchers("/", "/login", "/register", "/products/**", "/css/**", "/images/**").permitAll()
-
-                        // それ以外はすべてログインが必要
+                        .requestMatchers(
+                                "/",
+                                "/login",
+                                "/register",
+                                "/products/**",
+                                "/css/**",
+                                "/js/**",
+                                "/images/**",
+                                "/uploads/**"
+                        ).permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
