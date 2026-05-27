@@ -9,9 +9,17 @@
 <body class="bg-light">
 
 <!-- ナビバー -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Office Station</a>
+        <a class="navbar-brand" href="/mypage">Fit Deli</a>
+
+        <div class="navbar-nav me-auto align-items-center">
+            <a class="nav-link" href="/products">商品一覧</a>
+            <a class="nav-link" href="/cart">カート</a>
+            <a class="nav-link" href="/orders">注文履歴</a>
+            <a class="nav-link active" href="/mypage">マイページ</a>
+        </div>
+
 
         <div class="d-flex">
             <form th:action="@{/logout}" method="post" class="d-inline">
@@ -56,7 +64,29 @@
                             <strong>ユーザー名：</strong>
                             <span th:text="${username}"></span>
                         </li>
+
+                        <li class="list-group-item">
+                            <strong>権限：</strong>
+                            <span th:text="${user.role}"></span>
+                        </li>
                     </ul>
+
+                    <div class="card mt-4 border-0 bg-light">
+                        <div class="card-body">
+                            <h5 class="mb-2">おすすめメニュー</h5>
+
+                            <p class="text-muted mb-3">
+                                高たんぱく・低糖質メニューなど、目的に合わせた商品を探せます。
+                            </p>
+
+                            <a href="/products" class="btn btn-outline-primary">
+                                商品一覧を見る
+                            </a>
+                        </div>
+                    </div>
+
+
+
 
                 </div>
             </div>

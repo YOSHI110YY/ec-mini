@@ -31,8 +31,9 @@ public class MyPageController {
 
             // 3. HTML側の ${user?.name} に合わせて、"user" という名前で渡す
             model.addAttribute("user", user);
-            // 念のため、今まで使っていた username も残しておく
             model.addAttribute("username", username);
+            model.addAttribute("role", user.getRole());
+
         } else {
             return "redirect:/login";
         }
