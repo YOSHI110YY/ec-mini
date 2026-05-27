@@ -107,17 +107,17 @@ Spring Boot を用いてバックエンドを構築し、Railway にデプロイ
 - レイアウト共通化時に循環参照が発生し、画面構成の見直しを行った
 - 商品画像のパス管理と静的リソース構成の調整
 - Thymeleaf のテンプレート構造整理
-- Railway デプロイ時の Docker / branch 管理
+- Railway デプロイ時の環境変数管理・branch運用
 
 ---
 
 ## URL
 
 ### アプリ
-https://ec-mini-production.up.railway.app/
+[Fit Deli](https://ec-mini-production.up.railway.app/)
 
 ### GitHub
-https://github.com/YOSHI110YY/ec-mini
+[GitHub Repository](https://github.com/YOSHI110YY/ec-mini)
 
 ---
 
@@ -131,7 +131,7 @@ PASS: password
 ### 管理者
 ID: admin　　
 
-PASS: passoword
+PASS: password
 
 ---
 
@@ -167,6 +167,5 @@ mvn spring-boot:run
 
 ---
 
-本アプリは、Java / Spring Boot の学習を目的として開発しました。
-
+本アプリは、CRUD機能だけでなく、実運用を意識したUI改善・例外処理・保守性を考慮しながら開発を行いました。
 今後も機能追加・UI改善を継続予定です。
