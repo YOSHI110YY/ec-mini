@@ -42,7 +42,7 @@
 
                     <h4 class="mb-3">商品一覧</h4>
 
-                    <div class="row" th:if="${products.size() > 0}">
+                    <div class="row" th:if="${products != null and products.size() > 0}">
                         <div class="col-md-4 mb-4" th:each="product : ${products}">
                             <div class="card h-100">
 
@@ -68,7 +68,7 @@
                         </div>
                     </div>
 
-                    <p th:if="${products.size() == 0}" class="text-muted">
+                    <p th:if="${products == null or products.size() == 0}" class="text-muted">
                         商品が登録されていません。
                     </p>
 
