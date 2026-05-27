@@ -7,13 +7,20 @@
 
     <style>
         body {
-            background: #f5f6f8;
+            background:
+                    linear-gradient(rgba(255,255,255,0.78), rgba(255,255,255,0.78)),
+                    url('/images/bg-food.jpg');
+
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
 
         main {
-            background: #ffffff;
-            border-radius: 14px;
+            background: rgba(255,255,255,0.82);
+            border-radius: 12px;
             padding: 24px;
+            backdrop-filter: blur(3px);
         }
 
         .btn {
@@ -26,6 +33,7 @@
             width: 100%;
             border-radius: 14px;
         }
+
     </style>
 
 </head>
