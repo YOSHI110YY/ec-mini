@@ -22,13 +22,12 @@
         }
 
         .product-price {
-            color: #b12704;
-            font-size: 1.1rem;
+            color: #157347;
             font-weight: bold;
         }
         body {
             background:
-                    linear-gradient(rgba(255,255,255,0.78), rgba(255,255,255,0.78)),
+                    linear-gradient(rgba(255,255,255,0.88), rgba(255,255,255,0.88)),
                     url('/images/bg-food.jpg');
             background-size: cover;
             background-position: center;
@@ -45,7 +44,6 @@
         .btn-success {
             border-radius: 10px;
         }
-
         .product-card {
             border-radius: 12px;
             overflow: hidden;
@@ -63,7 +61,7 @@
         }
 
         .product-price {
-            color: #0d6efd;
+            color: #157347;
             font-size: 1.05rem;
             font-weight: 700;
         }
@@ -181,7 +179,7 @@
 
             <div class="col-md-2">
 
-                <button class="btn btn-primary w-100">
+                <button class="btn btn btn-success w-100">
                     検索
                 </button>
 
@@ -229,7 +227,7 @@
                       th:text="${product.category}">
                 </span>
 
-                <p class="card-text text-primary mb-2">
+                <p class="card-text product-price mb-2">
                             <span th:text="${#numbers.formatInteger(product.price, 0, 'COMMA')}"></span> 円
                 </p>
 
@@ -283,7 +281,7 @@
 
                         <div class="card-body p-1">
                             <p class="small text-truncate mb-1" th:text="${p.name}"></p>
-                            <p class="text-primary small mb-0">
+                            <p class="text-success small mb-0">
                                 <span th:text="${p.price}"></span>円
                             </p>
                         </div>
