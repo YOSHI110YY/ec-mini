@@ -113,8 +113,8 @@ Spring Boot を用いてバックエンドを構築し、Railway にデプロイ
 
 ## URL
 
-### アプリ
-[Fit Deli](https://ec-mini-production.up.railway.app/products)
+### アプリ  
+[Fit Deli](https://ec-mini-production.up.railway.app/)
 
 ### GitHub
 [GitHub Repository](https://github.com/YOSHI110YY/ec-mini)
