@@ -4,6 +4,29 @@ Healthy frozen meals for everyday life.
 
 ---
 
+## Demo
+
+- App: https://ec-mini-production.up.railway.app/
+- GitHub: https://github.com/YOSHI110YY/ec-mini
+
+---
+
+## テストアカウント
+
+※ ポートフォリオ確認用の簡易アカウントです。
+
+### 一般ユーザー
+ID: testuser
+
+PASS: password
+
+### 管理者
+ID: admin　　
+
+PASS: password
+
+---
+
 ## アプリ概要
 
 Fit Deli は、健康志向ユーザー向けの冷凍宅配弁当 EC サイトです。
@@ -16,14 +39,24 @@ Spring Boot を用いてバックエンドを構築し、Railway にデプロイ
 
 ## 使用技術
 
+### Backend
 - Java 17
-- Spring Boot
+- Spring Boot 3
 - Spring Security
+- Spring Data JPA
+
+### Frontend
 - Thymeleaf
 - Bootstrap 5
+- HTML / CSS
+
+### Database
 - MySQL
+
+### Infrastructure / Tools
 - Railway
-- GitHub
+- Git / GitHub
+- IntelliJ IDEA
 
 ---
 
@@ -108,32 +141,6 @@ Spring Boot を用いてバックエンドを構築し、Railway にデプロイ
 - 商品画像のパス管理と静的リソース構成の調整
 - Thymeleaf のテンプレート構造整理
 - Railway デプロイ時の環境変数管理・branch運用
-
----
-
-## URL
-
-### アプリ  
-[Fit Deli](https://ec-mini-production.up.railway.app/)
-
-### GitHub
-[GitHub Repository](https://github.com/YOSHI110YY/ec-mini)
-
----
-
-## テストアカウント
-
-※ ポートフォリオ確認用の簡易アカウントです。
-
-### 一般ユーザー
-ID: testuser
-
-PASS: password
-
-### 管理者
-ID: admin　　
-
-PASS: password
 
 ---
 
