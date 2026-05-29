@@ -172,6 +172,27 @@ docker compose up --build
 
 ---
 
+
+## Docker
+
+docker compose up --build
+
+## CI/CD
+
+GitHub Actions
+
+push時に
+
+mvn test
+
+を自動実行
+
+## Test
+
+ProductServiceImplTest
+
+- findById
+
 ## 今後改善したい点
 
 - 決済機能の追加
