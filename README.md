@@ -165,6 +165,11 @@ cd ec-mini
 mvn spring-boot:run
 ```
 
+## Dockerでの起動方法
+
+```bash
+docker compose up --build
+
 ---
 
 ## 今後改善したい点
