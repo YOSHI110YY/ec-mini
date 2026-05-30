@@ -3,6 +3,7 @@
 Healthy frozen meals for everyday life.
 
 ![Java CI with Maven](https://github.com/YOSHI110YY/ec-mini/actions/workflows/ci.yml/badge.svg)
+
 ---
 
 ## Demo
@@ -228,8 +229,6 @@ CI
 - Failures: 0
 - Errors: 0
 - Skipped: 0
-
-```
 
 ## 今後改善したい点
 
