@@ -2,6 +2,7 @@
 
 Healthy frozen meals for everyday life.
 
+![Java CI with Maven](https://github.com/YOSHI110YY/ec-mini/actions/workflows/ci.yml/badge.svg)
 ---
 
 ## Demo
@@ -55,8 +56,23 @@ Spring Boot を用いてバックエンドを構築し、Railway にデプロイ
 
 ### Infrastructure / Tools
 - Railway
+- Docker
+- Docker Compose
+- GitHub Actions
 - Git / GitHub
 - IntelliJ IDEA
+
+### Testing
+- JUnit5
+- Mockito
+
+### CI/CD
+- GitHub Actions
+
+
+### Version Control
+- Git
+- GitHub
 
 ---
 
@@ -165,40 +181,61 @@ cd ec-mini
 mvn spring-boot:run
 ```
 
-## Dockerでの起動方法
+## Docker
+
+Docker Compose を使用して、アプリケーションと MySQL をローカル環境で起動できます。
+
+## 起動
 
 ```bash
 docker compose up --build
+```
 
----
+### アクセス
 
+```text
+http://localhost:8080
+```
 
-## Docker
+### 停止
 
-docker compose up --build
+```bash
+docker compose down
+```
 
-## CI/CD
+## Test / CI
 
-GitHub Actions
+JUnit5 / Mockito を利用した単体テストを実装しています。
 
-push時に
+対象
 
-mvn test
+- CartService
+- OrderService
+- ProductService
 
-を自動実行
+テスト件数
 
-## Test
+- 9 Tests
 
-ProductServiceImplTest
+CI
 
-- findById
+- GitHub Actions
+- push / pull request 時に自動実行
+
+実行結果
+
+- Tests run: 9
+- Failures: 0
+- Errors: 0
+- Skipped: 0
+
+```
 
 ## 今後改善したい点
 
 - 決済機能の追加
 - お気に入り機能
 - 商品レビュー機能
-- Docker対応
 
 ---
 

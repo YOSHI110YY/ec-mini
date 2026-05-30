@@ -24,6 +24,8 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/ecmini?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo
       SPRING_DATASOURCE_USERNAME: ecmini
       SPRING_DATASOURCE_PASSWORD: password
+      SPRING_MAIL_USERNAME: dummy@example.com
+      SPRING_MAIL_PASSWORD: dummy
 
 volumes:
   mysql-data:
