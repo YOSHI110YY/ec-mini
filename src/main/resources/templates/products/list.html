@@ -103,6 +103,7 @@
             <a class="nav-link text-white" href="/cart">カート</a>
             <a class="nav-link text-white" href="/orders">注文履歴</a>
             <a class="nav-link text-white" href="/mypage">マイページ</a>
+            <a class="nav-link text-white" href="/favorites">お気に入り</a>
 
             <form th:action="@{/logout}" method="post" class="d-inline m-0 ms-2">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
@@ -126,6 +127,7 @@
             <a href="/mypage" class="list-group-item list-group-item-action">マイページ</a>
             <a href="/orders" class="list-group-item list-group-item-action">注文履歴</a>
             <a th:href="@{/products}" class="list-group-item list-group-item-action active">商品一覧（全件）</a>
+            <a href="/favorites" class="list-group-item list-group-item-action">お気に入り</a>
         </div>
 
         <div class="list-group shadow-sm">

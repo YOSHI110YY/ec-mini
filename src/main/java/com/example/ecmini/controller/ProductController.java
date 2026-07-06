@@ -1,6 +1,7 @@
 package com.example.ecmini.controller;
 
 import com.example.ecmini.service.ProductService;
+import com.example.ecmini.service.FavoriteService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,16 +23,20 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.ArrayList;
+import java.security.Principal;
 
 
-//これは画面(HTML)を返すクラスですよ、という印
+//これは画面(HTML)を返すクラス
 @Controller
 public class ProductController {
 
     private final ProductService productService;
+    private final FavoriteService favoriteService;
 
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService,
+                             FavoriteService favoriteService) {
         this.productService = productService;
+        this.favoriteService = favoriteService;
     }
 
     @GetMapping("/products")
@@ -99,10 +104,19 @@ public class ProductController {
             @PathVariable Long id,
             Model model,
             HttpServletResponse response,
-            HttpServletRequest request
+            HttpServletRequest request,
+            Principal principal
     ) {
         Product product = productService.findById(id);
         model.addAttribute("product", product);
+
+        boolean isFavorite = false;
+
+        if(principal != null){
+            String username = principal.getName();
+            isFavorite = favoriteService.isFavorite(username,id);
+        }
+        model.addAttribute("isFavorite",isFavorite);
 
         // ▼ レコメンド（同じカテゴリの商品）
         List<Product> related = productService.findRelatedProducts(product.getCategory(), product.getId());
@@ -167,7 +181,7 @@ public class ProductController {
     }
 
     //商品登録(POST)
-    //@PostMapping("/admin/products")
+    @PostMapping("/admin/products")
     public String create(
             @ModelAttribute Product product,
             @RequestParam("imageFile") MultipartFile imageFile

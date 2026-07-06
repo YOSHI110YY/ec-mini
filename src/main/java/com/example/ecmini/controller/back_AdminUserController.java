@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/admin/users")
-public class AdminUserController {
+public class back_AdminUserController {
 
     private final UserService userService;
 
-    public AdminUserController(UserService userService) {
+    public back_AdminUserController(UserService userService) {
         this.userService = userService;
     }
 

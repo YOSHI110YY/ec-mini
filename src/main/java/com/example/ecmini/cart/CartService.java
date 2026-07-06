@@ -1,5 +1,6 @@
 package com.example.ecmini.cart;
 
+import com.example.ecmini.exception.StockException;
 import com.example.ecmini.cart.Cart;
 import com.example.ecmini.cart.CartItem;
 import com.example.ecmini.entity.Product;
@@ -16,11 +17,12 @@ public class CartService {
         this.productService = productService;
     }
 
-    // ▼ Session から Cart を取得（なければ作成）
+    //Session から Cart を取得
     public Cart getCart(HttpSession session) {
         Cart cart = (Cart) session.getAttribute("cart");
         if (cart == null) {
             cart = new Cart();
+            //作ったCartをsessionに保存
             session.setAttribute("cart", cart);
         }
         return cart;
@@ -38,7 +40,7 @@ public class CartService {
 
                 // 在庫チェック
                 if (item.getQuantity() + 1 > product.getStock()) {
-                    throw new RuntimeException("在庫が不足しています");
+                    throw new StockException("在庫が不足しています");
                 }
 
                 item.setQuantity(item.getQuantity() + 1);
@@ -48,7 +50,7 @@ public class CartService {
 
         // 新規追加
         if (product.getStock() < 1) {
-            throw new RuntimeException("在庫がありません");
+            throw new StockException("在庫がありません");
         }
 
         cart.addItem(new CartItem(product));

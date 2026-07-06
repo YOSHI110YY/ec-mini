@@ -104,6 +104,54 @@ class OrderServiceTest {
                 () -> orderService.createOrder(cart, "testuser"));
 
         assertTrue(exception.getMessage().contains("在庫が不足しています"));
+
+        assertEquals(2, product.getStock());
+
+        verify(orderRepository, never()).save(any(Order.class));
+        verify(orderItemRepository, never()).save(any());
+        verify(productRepository, never()).save(product);
+    }
+
+    @Test
+    void createOrder_複数商品を注文できる() {
+        Product product1 = new Product();
+        product1.setId(1L);
+        product1.setName("チキン弁当");
+        product1.setPrice(800);
+        product1.setStock(10);
+
+        Product product2 = new Product();
+        product2.setId(2L);
+        product2.setName("サラダ");
+        product2.setPrice(500);
+        product2.setStock(5);
+
+        Cart cart = new Cart();
+
+        CartItem item1 = new CartItem(product1);
+        item1.setQuantity(2);
+        cart.getItems().add(item1);
+
+        CartItem item2 = new CartItem(product2);
+        item2.setQuantity(1);
+        cart.getItems().add(item2);
+
+        when(productRepository.findById(1L)).thenReturn(Optional.of(product1));
+        when(productRepository.findById(2L)).thenReturn(Optional.of(product2));
+
+        Order order = orderService.createOrder(cart, "testuser");
+
+        assertEquals("testuser", order.getUsername());
+        assertEquals("ORDERED", order.getStatus());
+        assertEquals(2100, order.getTotalPrice());
+
+        assertEquals(8, product1.getStock());
+        assertEquals(4, product2.getStock());
+
+        verify(orderRepository, times(1)).save(any(Order.class));
+        verify(productRepository, times(1)).save(product1);
+        verify(productRepository, times(1)).save(product2);
+        verify(orderItemRepository, times(2)).save(any());
     }
 
     @Test
@@ -132,6 +180,17 @@ class OrderServiceTest {
     }
 
     @Test
+    void findById_注文が存在しない場合は例外() {
+        when(orderRepository.findById(99L))
+                .thenReturn(Optional.empty());
+
+        RuntimeException exception = assertThrows(RuntimeException.class,
+                () -> orderService.findById(99L));
+
+        assertEquals("注文が見つかりません: 99", exception.getMessage());
+    }
+
+    @Test
     void updateStatus_注文ステータスを更新する() {
         Order order = new Order();
         order.setId(1L);
@@ -143,4 +202,17 @@ class OrderServiceTest {
 
         assertEquals("SHIPPED", order.getStatus());
     }
+
+    @Test
+    void updateStatus_注文が存在しない場合は例外() {
+        when(orderRepository.findById(99L))
+                .thenReturn(Optional.empty());
+
+        RuntimeException exception = assertThrows(RuntimeException.class,
+                () -> orderService.updateStatus(99L, "SHIPPED"));
+
+        assertEquals("注文が見つかりません: 99", exception.getMessage());
+        verify(orderRepository, never()).save(any(Order.class));
+    }
+
 }

@@ -4,7 +4,7 @@ import com.example.ecmini.cart.Cart;
 import com.example.ecmini.cart.CartService;
 import com.example.ecmini.entity.Order;
 import com.example.ecmini.service.OrderService;
-
+import com.example.ecmini.service.StripeService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -22,6 +22,7 @@ public class OrderController {
 
     private final OrderService orderService;
     private final CartService cartService;
+    private final StripeService stripeService;
 
     @GetMapping("/orders/confirm")
     public String confirmOrder(Authentication auth, Model model, HttpSession session) {
@@ -44,7 +45,28 @@ public class OrderController {
 
         return "orders/list";
     }
+    @GetMapping("/orders/success")
+    public String orderSuccess(HttpSession session, Authentication auth) {
 
+        Cart cart = (Cart) session.getAttribute("cart");
+
+        if (cart == null || cart.getItems().isEmpty()) {
+            return "orders/success";
+        }
+
+        String username = auth.getName();
+
+        orderService.createOrder(cart, username);
+
+        session.removeAttribute("cart");
+
+        return "orders/success";
+    }
+
+        @GetMapping("/orders/cancel")
+    public String orderCancel() {
+        return "orders/cancel";
+    }
 
     @GetMapping("/orders/{id}")
     public String orderDetail(@PathVariable("id") Long id,
@@ -78,6 +100,16 @@ public class OrderController {
         model.addAttribute("order", order);
 
         return "orders/complete";
+    }
+
+    @PostMapping("/orders/checkout")
+    public String checkout(HttpSession session){
+
+        Cart cart = cartService.getCart(session);
+
+        String checkoutUrl = stripeService.createCheckoutSession(cart);
+
+        return "redirect:" + checkoutUrl;
     }
 
 }

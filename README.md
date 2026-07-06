@@ -39,12 +39,21 @@ Fit Deli は、健康志向ユーザー向けの冷凍宅配弁当 EC サイト�
 管理者は商品管理、注文管理、
 注文ステータス更新を行うことができます。
 
-### 開発・運用
+## 主な特徴
 
+- Spring Boot 3 による ECサイト
+- Stripe Checkout を利用した決済機能
+- Spring Security による認証・認可
+- Docker / Railway による開発・デプロイ
+- JUnit5・Mockito による単体テスト（52件）
+- GitHub Actions によるCI
+
+### 開発・運用
 - Railway による本番公開
 - Docker Compose による開発環境構築
 - JUnit5 / Mockito による単体テスト
 - GitHub Actions による CI
+- 決済成功後に注文データを登録し、注文履歴へ反映
 
 ## 使用技術
 
@@ -63,10 +72,12 @@ Fit Deli は、健康志向ユーザー向けの冷凍宅配弁当 EC サイト�
 - MySQL
 
 ### Infrastructure / Tools
+
 - Railway
 - Docker
 - Docker Compose
 - GitHub Actions
+- Stripe Checkout
 - Git / GitHub
 - IntelliJ IDEA
 
@@ -103,6 +114,39 @@ Fit Deli は、健康志向ユーザー向けの冷凍宅配弁当 EC サイト�
 - 注文ステータス更新
 - ダッシュボード表示
 
+## Stripeテスト決済
+
+本アプリでは Stripe Checkout を利用したテスト決済を実装しています。
+
+### テストカード
+
+カード番号
+
+4242 4242 4242 4242
+
+有効期限
+
+任意の未来日
+
+CVC
+
+任意の3桁
+
+メールアドレス
+
+任意
+
+### 実装内容
+
+- Stripe Checkout API
+- PaymentExceptionによる例外処理
+- GlobalExceptionHandlerによる共通エラーハンドリング
+- 決済成功後に注文履歴へ反映
+
+※ 学習用ポートフォリオのため、注文確定は `/orders/success` で行っています。
+実務ではWebhookによる注文確定が望ましい設計です。
+
+
 ---
 
 ## 画面イメージ
@@ -137,26 +181,16 @@ Fit Deli は、健康志向ユーザー向けの冷凍宅配弁当 EC サイト�
 
 ---
 
-## 工夫した点
-
-- Shopify風の食品ECデザインを意識し、UIを統一
-- 商品画像・カードUI・注文導線を改善
-- レスポンシブ対応を意識してBootstrapで実装
-- 注文ステータスと管理画面を連動
-
----
-
 ## 設計・実装で意識した点
 
 - Controller / Service / Repository の責務分離
-- Entityを画面入力に直接使用せず、ProductFormを用いたDTO設計
+- DTO（ProductForm）を用いた画面入力の分離
 - Bean Validationによる入力チェック
-- BindingResultを用いたフォームエラー制御
 - GlobalExceptionHandlerによる例外処理の共通化
-- ProductNotFoundExceptionによる独自例外の定義
-- application-secret.propertiesによる機密情報の分離
+- StockException・OrderException・PaymentExceptionによる独自例外設計
+- Stripe CheckoutをService層へ分離し、Controllerから決済ライブラリを隠蔽
+- application-secret.propertiesによる機密情報管理
 - 商品登録・更新処理の共通化による重複コード削減
-
 ---
 
 ## 苦労した点
@@ -215,33 +249,26 @@ docker compose down
 
 JUnit5 / Mockito を利用した単体テストを実装しています。
 
-対象
+### 対象
 
+- ProductService
 - CartService
 - OrderService
-- ProductService
 
-テスト件数
+### 実行結果
 
-- 9 Tests
-
-CI
-
-- GitHub Actions
-- push / pull request 時に自動実行
-
-実行結果
-
-- Tests run: 9
-- Failures: 0
-- Errors: 0
-- Skipped: 0
-
+```text
+Tests run: 52
+Failures: 0
+Errors: 0
+Skipped: 0
+```
 ## 今後改善したい点
 
-- 決済機能の追加
-- お気に入り機能
+- AWS環境へのデプロイ
+- Stripe Webhookによる注文確定
 - 商品レビュー機能
+- 管理画面の検索・絞り込み機能
 
 ---
 

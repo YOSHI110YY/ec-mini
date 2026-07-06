@@ -1,5 +1,7 @@
 package com.example.ecmini.service;
 
+import com.example.ecmini.exception.OrderException;
+import com.example.ecmini.exception.StockException;
 import com.example.ecmini.cart.Cart;
 import com.example.ecmini.cart.CartItem;
 import com.example.ecmini.entity.Order;
@@ -26,7 +28,15 @@ public class OrderService {
     @Transactional
     public Order createOrder(Cart cart, String username) {
 
-        // 注文作成
+        for (CartItem ci : cart.getItems()) {
+            Product p = productRepository.findById(ci.getProductId())
+                    .orElseThrow(() -> new OrderException("商品が見つかりません: " + ci.getProductId()));
+
+            if (p.getStock() < ci.getQuantity()) {
+                throw new OrderException("在庫が不足しています: " + p.getName());
+            }
+        }
+
         Order order = new Order();
         order.setUsername(username);
         order.setCreatedAt(LocalDateTime.now());
@@ -34,23 +44,13 @@ public class OrderService {
         order.setStatus("ORDERED");
         orderRepository.save(order);
 
-        // 注文アイテム保存 & 在庫減算
         for (CartItem ci : cart.getItems()) {
-
-            // 在庫減算
-            Product p = productRepository.findById(ci.getProductId())
-                    .orElseThrow(() -> new RuntimeException("商品が見つかりません: " + ci.getProductId()));
-
-            if (p.getStock() < ci.getQuantity()) {
-                throw new RuntimeException("在庫が不足しています: " + p.getName());
-            }
+            Product p = productRepository.findById(ci.getProductId()).get();
 
             p.setStock(p.getStock() - ci.getQuantity());
             productRepository.save(p);
 
-            // 注文アイテム保存
             OrderItem oi = new OrderItem();
-
             oi.setOrder(order);
             oi.setProductId(ci.getProductId());
             oi.setProductName(ci.getName());
@@ -78,20 +78,17 @@ public class OrderService {
     }
     public Order findById(Long id) {
         return orderRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("注文が見つかりません: " + id));
+                .orElseThrow(() -> new OrderException("注文が見つかりません: " + id));
     }
     @Transactional
     public void updateStatus(Long id, String status) {
 
         Order order = orderRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() ->
+                        new OrderException("注文が見つかりません: " + id));
 
         order.setStatus(status);
+
+        orderRepository.save(order);
     }
-
-    public long getPendingShipmentCount() {
-        return orderRepository.countByStatus("ORDERED");
-    }
-
-
 }

@@ -67,6 +67,7 @@
             <a class="nav-link active" href="/cart">カート</a>
             <a class="nav-link text-white" href="/orders">注文履歴</a>
             <a class="nav-link text-white" href="/mypage">マイページ</a>
+            <a class="nav-link text-white" href="/favorites">お気に入り</a>
 
             <form th:action="@{/logout}" method="post" class="d-inline m-0 ms-2">
                 <input type="hidden"
@@ -95,6 +96,10 @@
             商品一覧へ戻る
         </a>
 
+    </div>
+
+    <div th:if="${errorMessage}" class="alert alert-danger">
+        <span th:text="${errorMessage}"></span>
     </div>
 
     <div th:if="${#lists.isEmpty(cart.items)}"

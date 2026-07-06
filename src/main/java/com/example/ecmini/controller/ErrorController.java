@@ -1,4 +1,4 @@
-package com.example.ecmini.config;
+package com.example.ecmini.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

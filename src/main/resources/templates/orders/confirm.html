@@ -44,6 +44,7 @@
         <a class="nav-link" href="/cart">カート</a>
         <a class="nav-link" href="/orders">注文履歴</a>
         <a class="nav-link" href="/mypage">マイページ</a>
+        <a class="nav-link text-white" href="/favorites">お気に入り</a>
         <a class="nav-link" href="/logout">ログアウト</a>
     </div>
 </nav>
@@ -80,7 +81,7 @@
             合計金額：<span th:text="${total}"></span>円
         </p>
 
-        <form th:action="@{/orders/complete}"
+        <form th:action="@{/orders/checkout}"
               method="post"
               class="text-end mt-4">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">

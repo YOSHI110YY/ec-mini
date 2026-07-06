@@ -44,7 +44,6 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAll();
     }
 
-
     @Override
     public List<Product> findByCategory(String category) {
         return productRepository.findByCategory(category);
@@ -157,6 +156,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<Product> searchWithPaging(String name, String category, int page) {
 
+        //ページ番号・表示件数・並び順を指定
         Pageable pageable = PageRequest.of(page, 10, Sort.by("id").descending());
 
         if ((name == null || name.isEmpty()) &&
