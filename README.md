@@ -9,6 +9,8 @@ Healthy frozen meals for everyday life.
 ## Demo
 
 - App: https://ec-mini-production.up.railway.app/
+    - ※ Railway無料トライアル終了に伴い、現在公開環境は停止しています。
+    - ローカル環境では Stripe Checkout を含む全機能の動作確認済みです。
 - GitHub: https://github.com/YOSHI110YY/ec-mini
 
 ---
@@ -49,7 +51,7 @@ Fit Deli は、健康志向ユーザー向けの冷凍宅配弁当 EC サイト�
 - GitHub Actions によるCI
 
 ### 開発・運用
-- Railway による本番公開
+- Railway を利用したデプロイ環境を構築
 - Docker Compose による開発環境構築
 - JUnit5 / Mockito による単体テスト
 - GitHub Actions による CI
@@ -114,9 +116,16 @@ Fit Deli は、健康志向ユーザー向けの冷凍宅配弁当 EC サイト�
 - 注文ステータス更新
 - ダッシュボード表示
 
-## Stripeテスト決済
+---
 
-本アプリでは Stripe Checkout を利用したテスト決済を実装しています。
+### Stripeテスト決済
+
+ローカル環境でStripeテスト決済を利用する場合は、
+Stripeのシークレットキーを環境変数として設定してください。
+
+```properties
+STRIPE_SECRET_KEY=sk_test_xxxxxxxxxxxxxxxxx
+```
 
 ### テストカード
 
@@ -141,7 +150,7 @@ CVC
 - Stripe Checkout API
 - PaymentExceptionによる例外処理
 - GlobalExceptionHandlerによる共通エラーハンドリング
-- 決済成功後に注文履歴へ反映
+- 決済成功後に注文データを登録し、注文履歴へ反映
 
 ※ 学習用ポートフォリオのため、注文確定は `/orders/success` で行っています。
 実務ではWebhookによる注文確定が望ましい設計です。
@@ -166,6 +175,9 @@ CVC
 ### 注文確認画面
 ![order-confirm](docs/images/order-confirm.png)
 
+### Stripe Checkout画面
+![stripe-checkout](docs/images/stripe-checkout.png)
+
 ### 注文完了画面
 ![order-complete](docs/images/order-complete.png)
 
@@ -189,7 +201,7 @@ CVC
 - GlobalExceptionHandlerによる例外処理の共通化
 - StockException・OrderException・PaymentExceptionによる独自例外設計
 - Stripe CheckoutをService層へ分離し、Controllerから決済ライブラリを隠蔽
-- application-secret.propertiesによる機密情報管理
+- 環境変数による機密情報（Stripe Secret Key）の管理
 - 商品登録・更新処理の共通化による重複コード削減
 ---
 
@@ -222,6 +234,13 @@ cd ec-mini
 ```bash
 mvn spring-boot:run
 ```
+
+※ Stripe決済を利用する場合は、事前に環境変数 `STRIPE_SECRET_KEY` を設定してください。
+
+```properties
+STRIPE_SECRET_KEY=sk_test_xxxxxxxxxxxxxxxxx
+```
+
 
 ## Docker
 
