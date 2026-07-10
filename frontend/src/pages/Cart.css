@@ -1,0 +1,32 @@
+import "./Cart.css";
+.cart-page {
+    max-width: 720px;
+    margin: 40px auto;
+    padding: 24px;
+}
+
+.cart-item {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    background: #fff;
+}
+
+.cart-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.cart-actions button {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.cart-total {
+    margin-top: 24px;
+    font-size: 24px;
+}

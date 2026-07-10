@@ -1,0 +1,26 @@
+.order-confirm {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.order-item {
+    background-color:white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.order-total {
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+.order-button {
+    background-color: #4caf50;
+    color: white;
+    font-size: 18px;
+    margin-bottom: 20px;
+}

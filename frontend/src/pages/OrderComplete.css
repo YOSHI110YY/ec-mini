@@ -1,0 +1,28 @@
+.order-complete {
+    max-width: 720px;
+    margin: 80px auto;
+    padding: 40px 24px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.order-complete h1 {
+    margin-bottom: 16px;
+}
+
+.order-complete p {
+    margin-bottom: 32px;
+}
+
+.back-to-products {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    background: #4caf50;
+    color: #fff;
+    font-weight: bold;
+}
