@@ -25,9 +25,13 @@ public class StripeService {
         SessionCreateParams.Builder paramsBuilder =
                 SessionCreateParams.builder()
                         .setMode(SessionCreateParams.Mode.PAYMENT)
-                        .setSuccessUrl("http://localhost:8080/orders/success")
-                        .setCancelUrl("http://localhost:8080/orders/cancel");
-
+                        .setSuccessUrl(
+                                "http://localhost:5173/order/complete"
+                                        + "?session_id={CHECKOUT_SESSION_ID}"
+                        )
+                        .setCancelUrl(
+                                "http://localhost:5173/order/cancel"
+                        );
         for (CartItem item : cart.getItems()) {
             paramsBuilder.addLineItem(
                     SessionCreateParams.LineItem.builder()
@@ -53,6 +57,17 @@ public class StripeService {
 
         } catch (StripeException e) {
             throw new PaymentException("決済ページの作成に失敗しました"+ e.getMessage());
+        }
+    }
+    public Session getSession(String sessionId) {
+
+        try {
+            return Session.retrieve(sessionId);
+
+        } catch (StripeException e) {
+            throw new PaymentException(
+                    "決済情報の取得に失敗しました: " + e.getMessage()
+            );
         }
     }
 }

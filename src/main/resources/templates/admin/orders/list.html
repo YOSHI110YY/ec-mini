@@ -84,7 +84,12 @@
 
                             <td>
 
-                           <span th:if="${o.status == 'ORDERED'}"
+                                <span th:if="${o.status == 'PAID'}"
+                                      class="badge bg-primary">
+                                 PAID
+                           </span>
+
+                                <span th:if="${o.status == 'ORDERED'}"
                                  class="badge bg-warning text-dark">
                                  ORDERED
                            </span>

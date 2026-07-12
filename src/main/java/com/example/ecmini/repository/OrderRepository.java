@@ -28,4 +28,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     Optional<Order> findByIdAndUsernameWithItems(@Param("id") Long id,
                                                  @Param("username") String username);
 
+    boolean existsByStripeSessionId(String stripeSessionId);
+
+    Optional<Order> findByStripeSessionId(String stripeSessionId);
 }

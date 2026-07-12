@@ -1,0 +1,37 @@
+.order-detail-page {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 48px 24px;
+}
+
+.order-summary {
+    margin-bottom: 32px;
+    padding: 24px;
+    background-color: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 8%);
+}
+
+.order-items {
+    display: grid;
+    gap: 20px;
+}
+
+.order-item-card {
+    padding: 24px;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 8%);
+}
+
+.order-item-info h3 {
+    margin-top: 0;
+}
+
+.order-total {
+    margin-top: 32px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #16853c;
+}

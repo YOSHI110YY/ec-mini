@@ -98,6 +98,12 @@
                         </td>
 
                         <td>
+
+                            <span th:if="${o.status == 'PAID'}"
+                                  class="badge bg-primary">
+                                支払い済み
+                            </span>
+
                             <span th:if="${o.status == 'ORDERED'}"
                                   class="badge bg-warning text-dark">
                                 注文受付
@@ -110,7 +116,7 @@
 
                             <span th:if="${o.status == 'CANCELED'}"
                                   class="badge bg-danger">
-                                CANCELED
+                                キャンセル
                             </span>
 
                             <span th:if="${o.status == null}"

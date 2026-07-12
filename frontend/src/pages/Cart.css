@@ -1,32 +1,162 @@
-import "./Cart.css";
 .cart-page {
-    max-width: 720px;
-    margin: 40px auto;
-    padding: 24px;
+    width: min(960px, calc(100% - 48px));
+    margin: 0 auto;
+    padding: 56px 0 88px;
+}
+
+.cart-page h1 {
+    margin-bottom: 32px;
+    color: #173b27;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 42px;
+    font-weight: 600;
+}
+
+.cart-list {
+    display: grid;
+    gap: 20px;
 }
 
 .cart-item {
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    padding: 16px;
-    margin-bottom: 16px;
-    background: #fff;
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 32px;
+    padding: 28px 32px;
+    background-color: #fffdf8;
+    border: 1px solid #e8e1d6;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgb(45 64 48 / 8%);
+}
+
+.cart-item-info h2 {
+    margin: 0 0 10px;
+    color: #173b27;
+    font-size: 23px;
+    line-height: 1.4;
+}
+
+.cart-item-price {
+    margin: 0;
+    color: #59645d;
+    font-size: 17px;
+}
+
+.cart-quantity {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.cart-quantity-value {
+    min-width: 28px;
+    color: #173b27;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.quantity-button {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    color: #ffffff;
+    background-color: #315f3f;
+    border: none;
+    border-radius: 50%;
+    font-size: 19px;
+    cursor: pointer;
+}
+
+.quantity-button:hover {
+    background-color: #244b32;
+}
+
+.cart-summary {
+    margin-top: 32px;
+    padding: 28px 32px;
+    background-color: #fffdf8;
+    border: 1px solid #e8e1d6;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgb(45 64 48 / 8%);
+}
+
+.cart-total {
+    margin: 0 0 24px;
+    color: #173b27;
+    font-size: 30px;
+    font-weight: 700;
 }
 
 .cart-actions {
     display: flex;
-    gap: 12px;
-    margin-top: 12px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
 }
 
-.cart-actions button {
-    padding: 6px 14px;
-    border: none;
+.clear-cart-button {
+    padding: 13px 22px;
+    color: #a33a32;
+    background-color: #ffffff;
+    border: 1px solid #d9a29d;
     border-radius: 8px;
+    font-weight: 700;
     cursor: pointer;
 }
 
-.cart-total {
-    margin-top: 24px;
-    font-size: 24px;
+.clear-cart-button:hover {
+    background-color: #fff7f6;
+}
+
+.checkout-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 13px 28px;
+    color: #ffffff;
+    background-color: #315f3f;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.checkout-link:hover {
+    background-color: #244b32;
+}
+
+.cart-empty {
+    padding: 56px 24px;
+    background-color: #fffdf8;
+    border: 1px solid #e8e1d6;
+    border-radius: 16px;
+    text-align: center;
+}
+
+@media (max-width: 700px) {
+    .cart-page {
+        width: min(100% - 32px, 960px);
+        padding-top: 36px;
+    }
+
+    .cart-item {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 24px;
+    }
+
+    .cart-quantity {
+        justify-content: flex-start;
+    }
+
+    .cart-actions {
+        align-items: stretch;
+        flex-direction: column-reverse;
+    }
+
+    .checkout-link,
+    .clear-cart-button {
+        width: 100%;
+    }
 }

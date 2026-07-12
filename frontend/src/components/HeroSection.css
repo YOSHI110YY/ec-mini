@@ -1,0 +1,135 @@
+.hero-section {
+    display: grid;
+    grid-template-columns: 42% 58%;
+    align-items: stretch;
+    min-height: 560px;
+    overflow: hidden;
+    background-color: #f6f2e9;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 72px max(48px, calc((100vw - 1280px) / 2));
+    padding-right: 56px;
+}
+
+.hero-eyebrow {
+    margin-bottom: 20px;
+    color: #497153;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+}
+
+.hero-content h1 {
+    margin-bottom: 28px;
+    color: #173b27;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(52px, 5vw, 76px);
+    font-weight: 500;
+    line-height: 0.98;
+}
+
+.hero-content h1 span {
+    color: #4f7858;
+    font-style: italic;
+}
+
+.hero-description {
+    max-width: 480px;
+    margin-bottom: 32px;
+    color: #4d584f;
+    font-size: 17px;
+    line-height: 1.9;
+}
+
+.hero-button {
+    width: fit-content;
+    padding: 14px 28px;
+    color: #ffffff;
+    background-color: #2d6f42;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.hero-button:hover {
+    background-color: #245a36;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgb(36 90 54 / 18%);
+}
+
+.hero-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+    margin-top: 44px;
+    color: #536259;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.hero-features span {
+    position: relative;
+    padding-left: 16px;
+}
+
+.hero-features span::before {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    background-color: #4f7858;
+    border-radius: 50%;
+    content: "";
+    transform: translateY(-50%);
+}
+
+.hero-visual {
+    position: relative;
+    min-height: 560px;
+    overflow: hidden;
+}
+
+.hero-visual::after {
+    position: absolute;
+    inset: 0;
+    background:
+            linear-gradient(
+                    90deg,
+                    rgb(246 242 233 / 22%) 0%,
+                    transparent 28%
+            );
+    content: "";
+    pointer-events: none;
+}
+
+.hero-visual img {
+    width: 100%;
+    height: 100%;
+    min-height: 560px;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    filter: saturate(0.9) contrast(0.96);
+}
+
+@media (max-width: 850px) {
+    .hero-section {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-content {
+        padding: 56px 28px;
+    }
+
+    .hero-visual,
+    .hero-visual img {
+        min-height: 360px;
+    }
+}

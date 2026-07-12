@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -31,5 +32,6 @@ public class OrderItem {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
+    @JsonIgnore
     private Order order;
 }

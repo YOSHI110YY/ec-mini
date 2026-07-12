@@ -1,0 +1,83 @@
+.mypage {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 48px 24px;
+}
+
+.mypage h1 {
+    margin-bottom: 32px;
+    font-size: 36px;
+}
+
+.mypage-section {
+    margin-bottom: 32px;
+    padding: 28px;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 8%);
+}
+
+.mypage-section h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.user-info p {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    margin: 0;
+    padding: 14px 0;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.user-info p:last-child {
+    border-bottom: none;
+}
+
+.user-info span {
+    font-weight: bold;
+}
+
+.mypage-menu {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.mypage-menu-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 24px;
+    color: #222222;
+    background-color: #f7faf7;
+    border: 1px solid #d7e6d9;
+    border-radius: 12px;
+    text-decoration: none;
+}
+
+.mypage-menu-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgb(0 0 0 / 10%);
+}
+
+.mypage-menu-card strong {
+    color: #16853c;
+    font-size: 20px;
+}
+
+.mypage-menu-card span {
+    color: #555555;
+}
+
+@media (max-width: 600px) {
+    .mypage-menu {
+        grid-template-columns: 1fr;
+    }
+
+    .user-info p {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+}

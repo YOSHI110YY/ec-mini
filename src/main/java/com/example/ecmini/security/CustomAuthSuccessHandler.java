@@ -30,7 +30,7 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
 
 
             if (role.equals("ROLE_USER")) {
-                response.sendRedirect("/mypage");
+                response.sendRedirect("http://localhost:5173/mypage");
                 return;
             }
         }

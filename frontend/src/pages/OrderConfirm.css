@@ -1,26 +1,116 @@
-.order-confirm {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
+.order-confirm-page {
+    width: min(880px, calc(100% - 48px));
+    margin: 0 auto;
+    padding: 56px 0 88px;
 }
 
-.order-item {
-    background-color:white;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 16px;
-    margin-bottom: 16px;
+.order-confirm-page h1 {
+    margin-bottom: 32px;
+    color: #173b27;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 42px;
+    font-weight: 600;
 }
 
-.order-total {
-    font-size: 28px;
-    font-weight: bold;
-    margin-top: 30px;
+.order-confirm-list {
+    display: grid;
+    gap: 18px;
 }
 
-.order-button {
-    background-color: #4caf50;
-    color: white;
-    font-size: 18px;
-    margin-bottom: 20px;
+.order-confirm-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    padding: 24px 28px;
+    background-color: #fffdf8;
+    border: 1px solid #e8e1d6;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgb(45 64 48 / 8%);
+}
+
+.order-confirm-item h2 {
+    margin: 0 0 10px;
+    color: #173b27;
+    font-size: 22px;
+}
+
+.order-confirm-item p {
+    margin: 6px 0;
+    color: #59645d;
+}
+
+.order-confirm-subtotal {
+    align-self: center;
+    color: #2d6f42;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.order-confirm-summary {
+    margin-top: 28px;
+    padding: 28px;
+    background-color: #fffdf8;
+    border: 1px solid #e8e1d6;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgb(45 64 48 / 8%);
+}
+
+.order-confirm-total {
+    margin: 0 0 24px;
+    color: #173b27;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.order-confirm-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.order-back-link {
+    color: #526158;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.order-back-link:hover {
+    color: #173b27;
+}
+
+.order-submit-button {
+    min-height: 48px;
+    padding: 13px 30px;
+    color: #ffffff;
+    background-color: #315f3f;
+    border: none;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.order-submit-button:hover {
+    background-color: #244b32;
+}
+
+@media (max-width: 600px) {
+    .order-confirm-page {
+        width: min(100% - 32px, 880px);
+        padding-top: 36px;
+    }
+
+    .order-confirm-item {
+        grid-template-columns: 1fr;
+    }
+
+    .order-confirm-actions {
+        align-items: stretch;
+        flex-direction: column-reverse;
+    }
+
+    .order-submit-button {
+        width: 100%;
+    }
 }

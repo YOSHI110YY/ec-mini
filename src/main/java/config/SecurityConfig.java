@@ -41,6 +41,13 @@ public class SecurityConfig {
                 // 1. CSRFを有効にする（コメントアウトのままでOK = 有効になります）
                 // .csrf(csrf -> csrf.disable())
 
+                .cors(cors -> {})
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers(
+                                "/api/**",
+                                "/logout"
+                        )
+                )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/mypage", "/order/**", "/orders/**").authenticated()

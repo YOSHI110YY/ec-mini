@@ -27,13 +27,33 @@ public class OrderService {
 
     @Transactional
     public Order createOrder(Cart cart, String username) {
+        return createOrder(cart, username, null);
+    }
+
+    @Transactional
+    public Order createOrder(
+            Cart cart,
+            String username,
+            String stripeSessionId) {
+
+        if (stripeSessionId != null
+                && orderRepository.existsByStripeSessionId(stripeSessionId)) {
+            throw new OrderException("この決済はすでに注文処理されています");
+        }
+
+        if (cart.getItems().isEmpty()) {
+            throw new OrderException("カートが空です");
+        }
 
         for (CartItem ci : cart.getItems()) {
             Product p = productRepository.findById(ci.getProductId())
-                    .orElseThrow(() -> new OrderException("商品が見つかりません: " + ci.getProductId()));
+                    .orElseThrow(() ->
+                            new OrderException(
+                                    "商品が見つかりません: " + ci.getProductId()));
 
             if (p.getStock() < ci.getQuantity()) {
-                throw new OrderException("在庫が不足しています: " + p.getName());
+                throw new OrderException(
+                        "在庫が不足しています: " + p.getName());
             }
         }
 
@@ -41,11 +61,16 @@ public class OrderService {
         order.setUsername(username);
         order.setCreatedAt(LocalDateTime.now());
         order.setTotalPrice(cart.getTotalPrice());
-        order.setStatus("ORDERED");
+        order.setStatus("PAID");
+        order.setStripeSessionId(stripeSessionId);
+
         orderRepository.save(order);
 
         for (CartItem ci : cart.getItems()) {
-            Product p = productRepository.findById(ci.getProductId()).get();
+            Product p = productRepository.findById(ci.getProductId())
+                    .orElseThrow(() ->
+                            new OrderException(
+                                    "商品が見つかりません: " + ci.getProductId()));
 
             p.setStock(p.getStock() - ci.getQuantity());
             productRepository.save(p);

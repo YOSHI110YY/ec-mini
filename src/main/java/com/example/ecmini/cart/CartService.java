@@ -81,7 +81,10 @@ public class CartService {
         }
     }
 
-    // ▼ 削除
+    public void clearCart(HttpSession session) {
+        session.removeAttribute("cart");
+    }
+    // 削除
     public void removeItem(Long productId, HttpSession session) {
         Cart cart = getCart(session);
         cart.removeItem(productId);

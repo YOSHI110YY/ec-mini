@@ -79,8 +79,9 @@
             <div class="alert alert-light border text-start mb-4">
                 <p class="mb-1">
                     <strong>注文ステータス：</strong>
-                    ORDERED
+                    <span th:text="${order.status}"></span>
                 </p>
+
                 <p class="mb-0 text-muted">
                     管理画面から発送状況を確認・更新できます。
                 </p>

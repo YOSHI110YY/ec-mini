@@ -6,6 +6,10 @@ import Header from "./components/Header";
 import Cart from "./pages/Cart";
 import OrderComfirm from "./pages/OrderComfirm.jsx";
 import OrderComplete from "./pages/OrderComplete";
+import OrderList from "./pages/OrderList";
+import OrderDetail from "./pages/OrderDetail";
+import MyPage from "./pages/MyPage";
+import Favorites from "./pages/Favorites";
 
 function App() {
     const [cartItems, setCartItems] = useState(() => {
@@ -59,6 +63,9 @@ function App() {
             ...cartItems,
             product
         ]);
+
+
+
     }
 
     return (
@@ -96,9 +103,28 @@ function App() {
                             clearCart={clearCart}
                         />
                     }
-                /> <Route
+                />
+                <Route
                     path="/order/complete"
-                    element={<OrderComplete />}
+                    element={
+                        <OrderComplete clearCart={clearCart} />
+                    }
+                />
+                <Route
+                    path="/orders"
+                    element={<OrderList />}
+                />
+                <Route
+                    path="/orders/:id"
+                    element={<OrderDetail />}
+                />
+                <Route
+                    path="/mypage"
+                    element={<MyPage />}
+                />
+                <Route
+                    path="/favorites"
+                    element={<Favorites />}
                 />
 
             </Routes>

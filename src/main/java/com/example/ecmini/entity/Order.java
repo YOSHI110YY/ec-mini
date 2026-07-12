@@ -31,4 +31,8 @@ public class Order {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> items;
+
+    @Column(name = "stripe_session_id", unique = true)
+    private String stripeSessionId;
+
 }

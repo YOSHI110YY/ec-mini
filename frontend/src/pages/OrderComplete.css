@@ -1,28 +1,124 @@
-.order-complete {
-    max-width: 720px;
-    margin: 80px auto;
-    padding: 40px 24px;
+.order-complete-page {
+    width: min(700px, calc(100% - 48px));
+    margin: 72px auto 96px;
+}
+
+.order-complete-card {
+    padding: 56px 48px;
+    background-color: #fffdf8;
+    border: 1px solid #e8e1d6;
+    border-radius: 24px;
+    box-shadow: 0 14px 38px rgb(45 64 48 / 10%);
     text-align: center;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
-.order-complete h1 {
+.order-complete-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 24px;
+    color: #ffffff;
+    background-color: #315f3f;
+    border-radius: 50%;
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.order-complete-card h1 {
     margin-bottom: 16px;
+    color: #173b27;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 1.35;
 }
 
-.order-complete p {
-    margin-bottom: 32px;
+.order-complete-message {
+    margin-bottom: 36px;
+    color: #667168;
+    font-size: 17px;
 }
 
-.back-to-products {
-    display: inline-block;
-    padding: 12px 24px;
+.order-complete-info {
+    margin-bottom: 36px;
+    padding: 24px;
+    background-color: #f6f2e9;
+    border-radius: 14px;
+    text-align: left;
+}
+
+.order-complete-info p {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    margin: 0;
+    padding: 12px 0;
+    color: #526158;
+    border-bottom: 1px solid #ddd7cc;
+}
+
+.order-complete-info p:last-child {
+    border-bottom: none;
+}
+
+.order-complete-info strong {
+    color: #173b27;
+}
+
+.order-complete-actions {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+}
+
+.complete-primary-link,
+.complete-secondary-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 13px 24px;
     border-radius: 8px;
+    font-weight: 700;
     text-decoration: none;
-    background: #4caf50;
-    color: #fff;
-    font-weight: bold;
+}
+
+.complete-primary-link {
+    color: #ffffff;
+    background-color: #315f3f;
+}
+
+.complete-primary-link:hover {
+    background-color: #244b32;
+}
+
+.complete-secondary-link {
+    color: #315f3f;
+    background-color: #ffffff;
+    border: 1px solid #8eae96;
+}
+
+.complete-secondary-link:hover {
+    background-color: #f5faf6;
+}
+
+@media (max-width: 600px) {
+    .order-complete-page {
+        width: min(100% - 32px, 700px);
+        margin-top: 40px;
+    }
+
+    .order-complete-card {
+        padding: 40px 24px;
+    }
+
+    .order-complete-card h1 {
+        font-size: 32px;
+    }
+
+    .order-complete-actions {
+        flex-direction: column;
+    }
 }

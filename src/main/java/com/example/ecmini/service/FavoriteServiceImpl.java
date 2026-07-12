@@ -4,6 +4,7 @@ import com.example.ecmini.entity.Favorite;
 import com.example.ecmini.entity.Product;
 import com.example.ecmini.repository.FavoriteRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -31,7 +32,7 @@ public class FavoriteServiceImpl implements FavoriteService {
             favoriteRepository.save(favorite);
         }
     }
-
+    @Transactional
     @Override
     public void removeFavorite(String username, Long productId) {
         favoriteRepository.deleteByUsernameAndProductId(username, productId);
