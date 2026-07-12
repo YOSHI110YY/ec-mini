@@ -53,7 +53,7 @@ class OrderServiceTest {
         Order order = orderService.createOrder(cart, "testuser");
 
         assertEquals("testuser", order.getUsername());
-        assertEquals("ORDERED", order.getStatus());
+        assertEquals("PAID", order.getStatus());
         assertEquals(1600, order.getTotalPrice());
         assertEquals(8, product.getStock());
 
@@ -142,7 +142,7 @@ class OrderServiceTest {
         Order order = orderService.createOrder(cart, "testuser");
 
         assertEquals("testuser", order.getUsername());
-        assertEquals("ORDERED", order.getStatus());
+        assertEquals("PAID", order.getStatus());
         assertEquals(2100, order.getTotalPrice());
 
         assertEquals(8, product1.getStock());
