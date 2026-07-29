@@ -173,9 +173,10 @@ Browser
 
 ---
 
-## React移行
+## React + REST APIへの移行
 
 一般ユーザー向け画面を、Spring BootのThymeleafテンプレートからReact + Viteへ移行しました。
+Reactへの移行に伴い、注文一覧・注文詳細APIではDTOを導入し、Entityを直接返却せず、フロントエンドで必要な情報のみを返却する構成へ改善しました。
 
 ### 移行対象
 
@@ -201,6 +202,8 @@ Browser
 ## REST API連携
 
 ReactからSpring Boot REST APIを利用して、商品・お気に入り・カート・注文情報を取得・更新しています。
+
+注文一覧・注文詳細ではDTOを利用し、フロントエンドへ必要な情報のみを返却しています。
 
 認証状態はCookieを利用して共有しています。
 
@@ -404,8 +407,9 @@ mvn test
 ## 設計・実装で意識した点
 
 - ReactとSpring Bootの役割分離
-- REST APIを利用したフロントエンド・バックエンド連携
+- REST APIとDTOを利用したフロントエンド・バックエンド連携
 - Controller、Service、Repositoryの責務分離
+- DTOを利用し、EntityとAPIレスポンスを分離
 - Spring Securityによる認証・認可
 - Cookieを利用したログイン状態の共有
 - 独自例外によるエラーの分類
@@ -417,7 +421,6 @@ mvn test
 - 共通API関数による重複処理の削減
 - React Routerを利用した画面遷移
 - コンポーネント分割による再利用性の向上
-
 ---
 
 ## 今後改善したい点

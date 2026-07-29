@@ -47,9 +47,8 @@ public class OrderService {
 
         for (CartItem ci : cart.getItems()) {
             Product p = productRepository.findById(ci.getProductId())
-                    .orElseThrow(() ->
-                            new OrderException(
-                                    "商品が見つかりません: " + ci.getProductId()));
+                    .orElseThrow(() -> new OrderException(
+                            "商品が見つかりません: " + ci.getProductId()));
 
             if (p.getStock() < ci.getQuantity()) {
                 throw new OrderException(
@@ -68,9 +67,8 @@ public class OrderService {
 
         for (CartItem ci : cart.getItems()) {
             Product p = productRepository.findById(ci.getProductId())
-                    .orElseThrow(() ->
-                            new OrderException(
-                                    "商品が見つかりません: " + ci.getProductId()));
+                    .orElseThrow(() -> new OrderException(
+                            "商品が見つかりません: " + ci.getProductId()));
 
             p.setStock(p.getStock() - ci.getQuantity());
             productRepository.save(p);
@@ -89,10 +87,6 @@ public class OrderService {
         return order;
     }
 
-    public List<Order> getOrdersByUser(String username) {
-
-        return orderRepository.findByUsername(username);
-    }
     public Order getOrderByIdAndUser(Long id, String username) {
         return orderRepository.findByIdAndUsernameWithItems(id, username)
                 .orElse(null);
@@ -101,16 +95,21 @@ public class OrderService {
     public List<Order> findAll() {
         return orderRepository.findAllByOrderByCreatedAtDesc();
     }
+
     public Order findById(Long id) {
         return orderRepository.findById(id)
                 .orElseThrow(() -> new OrderException("注文が見つかりません: " + id));
     }
+
+    public List<Order> getOrdersByUser(String username) {
+        return orderRepository.findByUsername(username);
+    }
+
     @Transactional
     public void updateStatus(Long id, String status) {
 
         Order order = orderRepository.findById(id)
-                .orElseThrow(() ->
-                        new OrderException("注文が見つかりません: " + id));
+                .orElseThrow(() -> new OrderException("注文が見つかりません: " + id));
 
         order.setStatus(status);
 

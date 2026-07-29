@@ -3,8 +3,9 @@ package com.example.ecmini.service;
 import com.example.ecmini.entity.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
-
+import com.example.ecmini.dto.ProductListResponse;
 import java.util.List;
+import com.example.ecmini.dto.ProductDetailResponse;
 
 public interface ProductService {
 
@@ -40,4 +41,7 @@ public interface ProductService {
 
     Page<Product> searchWithPaging(String name, String category, int page);
 
+    List<ProductListResponse> getProductList();
+
+    ProductDetailResponse findProductById(Long id);
 }

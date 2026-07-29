@@ -5,9 +5,9 @@ function ProductCard({ product }) {
     return (
         <div className="product-card">
             <img
-                src={`http://localhost:8080/uploads/product/${product.image}`}
-                alt={product.name}
-                className="product-image"
+            src={`http://localhost:8080${product.imageUrl}`}
+            alt={product.name}
+            className="product-image"
             />
             <h2>{product.name}</h2>
             <p>{product.price}円</p>

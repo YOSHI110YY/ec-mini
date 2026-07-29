@@ -1,7 +1,8 @@
 package com.example.ecmini.controller;
 
-import com.example.ecmini.service.ProductService;
+import com.example.ecmini.dto.ProductListResponse;
 import com.example.ecmini.entity.Product;
+import com.example.ecmini.service.ProductService;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +24,10 @@ public class ProductRestController {
     }
 
     @GetMapping
-    public List<Product> getAllProducts() {
-        return productService.findAll();
+    public List<ProductListResponse> getAllProducts() {
+        return productService.getProductList();
     }
+
     @GetMapping("/{id}")
     public Product getProductById(@PathVariable Long id) {
         return productService.findById(id);

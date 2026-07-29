@@ -8,12 +8,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import com.example.ecmini.dto.ProductListResponse;
+import com.example.ecmini.dto.ProductDetailResponse;
+
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.ArrayList;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -43,6 +47,48 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findAll() {
         return productRepository.findAll();
     }
+    @Override
+    public List<ProductListResponse> getProductList() {
+
+        List<Product> products = productRepository.findAll();
+
+        List<ProductListResponse> responseList = new ArrayList<>();
+
+        for (Product product : products) {
+
+            ProductListResponse response = new ProductListResponse();
+
+            response.setId(product.getId());
+            response.setName(product.getName());
+            response.setPrice(product.getPrice());
+            response.setImageUrl(getImagePath(product));
+
+            responseList.add(response);
+        }
+
+        return responseList;
+    }
+
+    @Override
+    public ProductDetailResponse findProductById
+            (Long id) {
+
+        Product product = productRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("商品が見つかりません: " + id));
+
+        ProductDetailResponse response =
+                new ProductDetailResponse();
+
+        response.setId(product.getId());
+        response.setName(product.getName());
+        response.setPrice(product.getPrice());
+        response.setDescription(product.getDescription());
+        response.setStock(product.getStock());
+        response.setImageUrl(getImagePath(product));
+
+        return response;
+    }
 
     @Override
     public List<Product> findByCategory(String category) {
@@ -52,7 +98,6 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> searchByName(String keyword) {
         return productRepository.findByNameContaining(keyword);
     }
-
 
     @Override
     public void deleteById(Long id) {

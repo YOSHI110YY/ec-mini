@@ -26,7 +26,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query("SELECT o FROM Order o LEFT JOIN FETCH o.items WHERE o.id = :id AND o.username = :username")
     Optional<Order> findByIdAndUsernameWithItems(@Param("id") Long id,
-                                                 @Param("username") String username);
+            @Param("username") String username);
 
     boolean existsByStripeSessionId(String stripeSessionId);
 

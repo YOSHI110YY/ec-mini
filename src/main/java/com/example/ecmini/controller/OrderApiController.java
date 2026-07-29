@@ -1,6 +1,8 @@
 package com.example.ecmini.controller;
 
-import com.example.ecmini.dto.OrderResponse;
+import com.example.ecmini.dto.OrderListResponse;
+import com.example.ecmini.dto.response.OrderDetailResponse;
+import com.example.ecmini.dto.response.OrderItemResponse;
 import com.example.ecmini.entity.Order;
 import com.example.ecmini.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -18,42 +20,56 @@ import java.util.List;
 @RequestMapping("/api/orders")
 public class OrderApiController {
 
-    private final OrderService orderService;
+        private final OrderService orderService;
 
-    @GetMapping
-    public ResponseEntity<List<OrderResponse>> getOrders(
-            Principal principal
-    ) {
-        List<OrderResponse> orders =
-                orderService.getOrdersByUser(
-                                principal.getName()
-                        )
-                        .stream()
-                        .map(order -> new OrderResponse(
-                                order.getId(),
-                                order.getTotalPrice(),
-                                order.getStatus(),
-                                order.getCreatedAt()
-                        ))
-                        .toList();
+        @GetMapping
+        public ResponseEntity<List<OrderListResponse>> getOrders(
+                        Principal principal) {
+                List<OrderListResponse> orders = orderService.getOrdersByUser(
+                                principal.getName())
+                                .stream()
+                                .map(order -> new OrderListResponse(
+                                                order.getId(),
+                                                order.getTotalPrice(),
+                                                order.getStatus(),
+                                                order.getCreatedAt()))
+                                .toList();
 
-        return ResponseEntity.ok(orders);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Order> getOrder(
-            @PathVariable Long id,
-            Principal principal
-    ) {
-        Order order = orderService.getOrderByIdAndUser(
-                id,
-                principal.getName()
-        );
-
-        if (order == null) {
-            return ResponseEntity.notFound().build();
+                return ResponseEntity.ok(orders);
         }
 
-        return ResponseEntity.ok(order);
-    }
+        @GetMapping("/{id}")
+        public ResponseEntity<OrderDetailResponse> getOrder(
+                        @PathVariable Long id,
+                        Principal principal) {
+
+                Order order = orderService.getOrderByIdAndUser(
+                                id,
+                                principal.getName());
+
+                if (order == null) {
+                        return ResponseEntity.notFound().build();
+                }
+
+                List<OrderItemResponse> items = order.getItems()
+                                .stream()
+                                .map(item -> new OrderItemResponse(
+                                                item.getId(),
+                                                item.getProductId(),
+                                                item.getProductName(),
+                                                item.getPrice(),
+                                                item.getQuantity(),
+                                                item.getSubtotal()))
+                                .toList();
+
+                OrderDetailResponse response = new OrderDetailResponse(
+                                order.getId(),
+                                order.getUsername(),
+                                order.getTotalPrice(),
+                                order.getCreatedAt(),
+                                order.getStatus(),
+                                items);
+
+                return ResponseEntity.ok(response);
+        }
 }
